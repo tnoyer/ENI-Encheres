@@ -1,0 +1,158 @@
+@charset "UTF-8";
+
+/* COMMUN */
+.navbar{
+	margin-bottom: 10px;
+}
+
+.block-nav-link{
+	display: flex;
+}
+
+.block-content{
+	width: 70%;
+	margin: auto;
+}
+
+.block-msg-err{
+	text-align: center;
+	padding: 10px;
+}
+
+ul{
+	list-style: none;
+	margin-left:0;
+	padding-left:0;
+}
+
+/* PAGE LOGIN */
+.block-connexion{
+	padding: 10px;
+	text-align: center;
+}
+
+.label-connexion{
+	width: 100px;
+}
+
+.block-btn-connexion{
+	display: flex;
+	justify-content: center;
+	padding: 10px;
+}
+
+.btn-connexion{
+	margin-right: 20px;
+	padding: 20px;
+}
+
+#remembercheckbox{
+	margin-right: 10px;
+}
+
+.block-remember{
+	display: flex;
+	flex-direction: column;
+}
+
+.block-btn-creation{
+	text-align: center;
+	padding: 50px;
+}
+
+#btn-creation{
+	padding: 20px;
+}
+
+/* PAGE REGISTER  */
+
+.block-inscription{
+	text-align: center;
+	padding: 10px;
+}
+
+.label-inscription{
+	width: 110px;
+	text-align: left;
+}
+
+.input-inscription{
+	margin-right: 150px;
+}
+
+.block-btn-inscription{
+	padding: 10px;
+}
+
+.btn-inscription, #btn-inscription-reset{
+	margin: 10px 50px;
+	padding: 10px 70px;
+}
+
+/* PAGE LISTE ENCHERES */
+.block-filter-art{
+	display: flex;
+}
+
+.input-filter-art{
+	width: 100%;
+}
+
+.block-art-cat{
+	display: flex;
+	flex-direction: column;
+	margin-right: 50px;
+}
+
+.block-art-cat .p-cat {
+	margin-bottom: 0;
+}
+
+.label-categorie{
+	width: 110px;
+}
+
+.btn-submit-filter-art{
+	padding:  10px 70px;
+	height: 100%;
+}
+
+/* PAGE PROFIL */
+.block-profil{
+	text-align: center;
+	padding: 10px;
+}
+
+.span-profil{
+	width: 110px;
+	text-align: left;
+}
+
+#btn-profil-modify{
+	margin: 10px;
+	padding: 10px 70px;
+}
+
+/* PAGE MODIF PROFIL  */
+.block-modify-profil{
+	text-align: center;
+	padding: 10px;
+}
+
+.label-modify-profil{
+	width: 110px;
+	text-align: left;
+}
+
+.input-modify-profil{
+	margin-right: 150px;
+}
+
+.block-btn-modify-profil{
+	padding: 10px;
+}
+
+.btn-modify-profil, #btn-delete-profil{
+	margin: 10px 50px;
+	padding: 10px 70px;
+}
