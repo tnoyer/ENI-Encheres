@@ -50,16 +50,19 @@
 				<input type="text" name="ville" id="ville" value="${ville }">
 			</p>
 			<p>
-				AJOUTER ANCIEN MOT DE PASSE
-				<label class="label-modify-profil" for="password">Mot de passe*: </label> 
-				<input class="input-inscription" type="password" name="password" id="password"> 
+				<label class="label-modify-profil" for="actualPassword">Mot de passe actuel*: </label> 
+				<input class="input-inscription" type="password" name="actualPassword" id="actualPassword"> 
+			</p>
+			<p>
+				<label class="label-modify-profil" for="newPassword">Nouveau mot de passe*: </label> 
+				<input class="input-inscription" type="password" name="newPassword" id="newPassword"> 
 				<label class="label-modify-profil" for="confirm">Confirmation*: </label> 
 				<input type="password" name="confirm" id="confirm">
 			</p>
 			<p>Crédit : ${credit}</p>
 			<div class="block-btn-modify-profil">
 				<input class="btn-modify-profil" type="submit" value="Enregistrer">
-				<a href="${pageContext.request.contextPath}/modifyProfil?supprimer=${id}"
+				<a href="${pageContext.request.contextPath}/deleteAccount?idUser=${id}"
 					class="btn btn-secondary btn-lg active" id="btn-delete-profil"
 					role="button" aria-pressed="true">Supprimer mon compte</a>
 			</div>

@@ -20,70 +20,56 @@ import fr.eni.javaee.eniencheres.bo.Utilisateur;
 @WebServlet("/modifyProfil")
 public class ServletModifyProfil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ServletModifyProfil() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public ServletModifyProfil() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		int idUser = Integer.parseInt(request.getParameter("idUser"));
-		
+
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
-		
-		if(request.getParameter("supprimer")!=null) {
-			int idUserDelete = Integer.parseInt(request.getParameter("supprimer"));
-			try {
-				utilisateurManager.supprimerUtilisateur(idUserDelete);
-				HttpSession session = request.getSession();
-				session.removeAttribute("connected");
-				session.removeAttribute("id");
-				session.removeAttribute("pseudo");
-				response.sendRedirect(request.getContextPath()+"/encheres");
-			} catch (BusinessException e) {
-				e.printStackTrace();
-				request.setAttribute("listeCodesErreur",e.getListeCodesErreur());
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/modifyProfil.jsp");
-				rd.forward(request, response);
-			}
-		} else {
-			try {
-				Utilisateur utilisateur = utilisateurManager.selectionnerUtilisateurParId(idUser);
-				request.setAttribute("pseudo", utilisateur.getPseudo());
-				request.setAttribute("nom", utilisateur.getNom());
-				request.setAttribute("prenom", utilisateur.getPrenom());
-				request.setAttribute("email", utilisateur.getEmail());
-				request.setAttribute("telephone", utilisateur.getTelephone());
-				request.setAttribute("rue", utilisateur.getRue());
-				request.setAttribute("cp", utilisateur.getCodePostal());
-				request.setAttribute("ville", utilisateur.getVille());
-				request.setAttribute("credit", utilisateur.getCredit());
-				
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/modifyProfil.jsp");
-				rd.forward(request, response);
-			} catch (BusinessException e) {
-				e.printStackTrace();
-				request.setAttribute("listeCodesErreur",e.getListeCodesErreur());
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/listeEncheres.jsp");
-				rd.forward(request, response);
-			}
+
+		try {
+			Utilisateur utilisateur = utilisateurManager.selectionnerUtilisateurParId(idUser);
+			request.setAttribute("pseudo", utilisateur.getPseudo());
+			request.setAttribute("nom", utilisateur.getNom());
+			request.setAttribute("prenom", utilisateur.getPrenom());
+			request.setAttribute("email", utilisateur.getEmail());
+			request.setAttribute("telephone", utilisateur.getTelephone());
+			request.setAttribute("rue", utilisateur.getRue());
+			request.setAttribute("cp", utilisateur.getCodePostal());
+			request.setAttribute("ville", utilisateur.getVille());
+			request.setAttribute("credit", utilisateur.getCredit());
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/modifyProfil.jsp");
+			rd.forward(request, response);
+		} catch (BusinessException e) {
+			e.printStackTrace();
+			request.setAttribute("listeCodesErreur", e.getListeCodesErreur());
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/listeEncheres.jsp");
+			rd.forward(request, response);
 		}
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
 		int id = Integer.parseInt(request.getParameter("idUser"));
-		System.out.println("id modify : "+id);
+		System.out.println("id modify : " + id);
 		String pseudo = request.getParameter("pseudo");
 		String nom = request.getParameter("nom");
 		String prenom = request.getParameter("prenom");
@@ -95,7 +81,6 @@ public class ServletModifyProfil extends HttpServlet {
 		String mdp = request.getParameter("password");
 		String confirm = request.getParameter("confirm");
 
-		
 		// Je modifie l'utilisateur
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
 		try {
