@@ -20,5 +20,13 @@ public abstract class CodesResultatBLL {
 	 * Echec si email non conforme
 	 */
 	public static final int EMAIL_ERR=20003;
+	/**
+	 * Echec si pseudo déjà existant
+	 */
+	public static final int UNIQUE_PSEUDO_ERR=20004;
+	/**
+	 * Echec si mail déjà existant
+	 */
+	public static final int UNIQUE_MAIL_ERR=20005;
 	
 }

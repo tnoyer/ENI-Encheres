@@ -32,5 +32,13 @@ public abstract class CodesResultatDAL {
 	 * Echec lors de la modification de l'utilisateur
 	 */
 	public static final int UPDATE_UTILISATEUR_ERR=10005;
+	/**
+	 * Echec lors de la requète de vérification de l'unicité du pseudo
+	 */
+	public static final int UNIQUE_PSEUDO_ERR=10006;
+	/**
+	 * Echec lors de la requète de vérification de l'unicité du mail
+	 */
+	public static final int UNIQUE_MAIL_ERR=10007;
 	
 }

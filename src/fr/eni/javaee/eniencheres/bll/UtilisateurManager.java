@@ -30,6 +30,8 @@ public class UtilisateurManager {
 		this.validerMotDePasse(utilisateur.getMotDePasse(), confirm, businessException);
 		this.validerChamps(utilisateur, confirm, businessException);
 		this.validerEmail(utilisateur.getEmail(), businessException);
+		this.validerUnicitePseudo(utilisateur.getPseudo(), businessException);
+		this.validerUniciteMail(utilisateur.getEmail(), businessException);
 		
 		if (!businessException.hasErreurs()) {
 			this.utilisateurDAO.insertUtilisateur(utilisateur);
@@ -38,6 +40,19 @@ public class UtilisateurManager {
 		}
 	}
 	
+	private void validerUniciteMail(String email, BusinessException businessException) throws BusinessException {
+		if(!utilisateurDAO.isUniqueMail(email)) {
+			businessException.ajouterErreur(CodesResultatBLL.UNIQUE_MAIL_ERR);
+		}
+	}
+
+	private void validerUnicitePseudo(String pseudo, BusinessException businessException) throws BusinessException {
+		if(!utilisateurDAO.isUniquePseudo(pseudo)) {
+			businessException.ajouterErreur(CodesResultatBLL.UNIQUE_PSEUDO_ERR);
+		}
+		
+	}
+
 	public void supprimerUtilisateur(int id) throws BusinessException{
 		this.utilisateurDAO.deleteUtilisateur(id);
 	}

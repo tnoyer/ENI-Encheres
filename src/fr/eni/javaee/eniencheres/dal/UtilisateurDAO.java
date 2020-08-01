@@ -9,4 +9,6 @@ public interface UtilisateurDAO {
 	public Utilisateur selectById(int id) throws BusinessException;
 	public void deleteUtilisateur(int id) throws BusinessException;
 	public void modifyUtilisateur(Utilisateur utilisateur) throws BusinessException;
+	public boolean isUniquePseudo(String pseudo) throws BusinessException;
+	public boolean isUniqueMail(String email) throws BusinessException;
 }
