@@ -40,5 +40,9 @@ public abstract class CodesResultatDAL {
 	 * Echec lors de la requète de vérification de l'unicité du mail
 	 */
 	public static final int UNIQUE_MAIL_ERR=10007;
+	/**
+	 * echec de la lecture de la categorie
+	 */
+	public static final int SELECT_CAT_ECHEC=10008;
 	
 }

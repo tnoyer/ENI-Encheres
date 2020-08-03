@@ -30,11 +30,11 @@
 		<div class="img-vte-art">IMAGE</div>
 		<div class="form-vte-art">
 			<form method="post"
-				action="${pageContext.request.contextPath}/register">
+				action="${pageContext.request.contextPath}/nouvelleVente">
 				<p>
-					<label class="label-vte-art" for="article">Article*: </label> <input
-						class="input-vte-art" type="text" name="article" id="article"
-						value="${article}">
+					<label class="label-vte-art" for="nomArticle">Article*: </label> <input
+						class="input-vte-art" type="text" name="nomArticle" id="nomArticle"
+						value="${nomArticle}">
 				</p>
 				<p>
 					<label class="label-vte-art" for="description">Description*:
@@ -43,8 +43,8 @@
 						name="description" id="description" value="${description}"></textarea>
 				</p>
 				<p>
-					<label class="label-vte-art" for="categorie">Catégories*: </label>
-					<select name="categorie" id="categorie">
+					<label class="label-vte-art" for="nomCategorie">Catégories*: </label>
+					<select name="nomCategorie" id="nomCategorie">
 						<option value="">Toutes</option>
 						<option value="informatique">Informatique</option>
 						<option value="ameublement">Ameublement</option>
@@ -52,6 +52,47 @@
 						<option value="sport">Sport et loisirs</option>
 					</select>
 				</p>
+				<p>
+					<label class="label-vte-art" for="photo">Photo de
+						l'article: </label>
+
+				</p>
+				<p>
+					<label class="label-vte-art" for="prix">Mise à prix*: </label> <input
+						class="input-vte-art" type="number" name="prix" id="prix"
+						value="${not empty prix ? prix : 150}">
+				</p>
+				<p>
+					<label class="label-vte-art" for="dateDebut">Début de
+						l'enchère*: </label> <input class="input-vte-art" type="date"
+						name="dateDebut" id="dateDebut" value="${dateDebut}">
+				</p>
+				<p>
+					<label class="label-vte-art" for="dateFin">Fin de
+						l'enchère*: </label> <input class="input-vte-art" type="date"
+						name="dateFin" id="dateFin" value="${dateFin}">
+				</p>
+				<fieldset>
+					<legend>Retrait</legend>
+					<p>
+						<label class="label-vte-art" for="rue">Rue*: </label> 
+						<input
+							class="input-vte-art" type="text" name="rue" id="rue"
+							value="${rue}">
+					</p>
+					<p>
+						<label class="label-vte-art" for="cp">Code postal*: </label> 
+						<input
+							class="input-vte-art" type="text" name="cp" id="cp"
+							value="${cp}">
+					</p>
+					<p>
+						<label class="label-vte-art" for="ville">Ville*: </label> 
+						<input
+							class="input-vte-art" type="text" name="ville" id="ville"
+							value="${ville}">
+					</p>
+				</fieldset>
 				<div class="block-btn-vte-art">
 					<input class="btn-vte-art" type="submit" value="Enregistrer">
 					<a href="${pageContext.request.contextPath}/encheres"

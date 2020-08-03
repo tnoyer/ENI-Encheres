@@ -1,6 +1,6 @@
 package fr.eni.javaee.eniencheres.bo;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class ArticleVendu {
 	
@@ -8,8 +8,8 @@ public class ArticleVendu {
 	private int id;
 	private String nom;
 	private String description;
-	private LocalDateTime dateDebut;
-	private LocalDateTime dateFin;
+	private LocalDate dateDebut;
+	private LocalDate dateFin;
 	private int prixInitial;
 	private int prixVente;
 	private String etatVente;
@@ -23,7 +23,7 @@ public class ArticleVendu {
 		super();
 	}
 
-	public ArticleVendu(int id, String nom, String description, LocalDateTime dateDebut, LocalDateTime dateFin,
+	public ArticleVendu(int id, String nom, String description, LocalDate dateDebut, LocalDate dateFin,
 			int prixInitial, int prixVente, String etatVente) {
 		super();
 		this.id = id;
@@ -36,7 +36,7 @@ public class ArticleVendu {
 		this.etatVente = etatVente;
 	}
 
-	public ArticleVendu(int id, String nom, String description, LocalDateTime dateDebut, LocalDateTime dateFin,
+	public ArticleVendu(int id, String nom, String description, LocalDate dateDebut, LocalDate dateFin,
 			int prixInitial, int prixVente, String etatVente, Utilisateur utilisateur, Categorie categorie,
 			Retrait retrait, String imagePath) {
 		super();
@@ -52,6 +52,20 @@ public class ArticleVendu {
 		this.categorie = categorie;
 		this.retrait = retrait;
 		this.imagePath = imagePath;
+	}
+
+	public ArticleVendu(String nom, String description, LocalDate dateDebut, LocalDate dateFin, int prixInitial,
+			int prixVente, Utilisateur utilisateur, Categorie categorie, Retrait retrait) {
+		super();
+		this.nom = nom;
+		this.description = description;
+		this.dateDebut = dateDebut;
+		this.dateFin = dateFin;
+		this.prixInitial = prixInitial;
+		this.prixVente = prixVente;
+		this.utilisateur = utilisateur;
+		this.categorie = categorie;
+		this.retrait = retrait;
 	}
 
 	public int getId() {
@@ -78,19 +92,19 @@ public class ArticleVendu {
 		this.description = description;
 	}
 
-	public LocalDateTime getDateDebut() {
+	public LocalDate getDateDebut() {
 		return dateDebut;
 	}
 
-	public void setDateDebut(LocalDateTime dateDebut) {
+	public void setDateDebut(LocalDate dateDebut) {
 		this.dateDebut = dateDebut;
 	}
 
-	public LocalDateTime getDateFin() {
+	public LocalDate getDateFin() {
 		return dateFin;
 	}
 
-	public void setDateFin(LocalDateTime dateFin) {
+	public void setDateFin(LocalDate dateFin) {
 		this.dateFin = dateFin;
 	}
 

@@ -32,5 +32,9 @@ public abstract class CodesResultatBLL {
 	 * Echec si le mot de passe actuel est faux
 	 */
 	public static final int ACTUAL_PASSWORD_ERR=20006;
+	/**
+	 * Echec si date de début est supérieur à la date de fin
+	 */
+	public static final int DATE_ERR=20007;
 	
 }
