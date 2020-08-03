@@ -28,5 +28,9 @@ public abstract class CodesResultatBLL {
 	 * Echec si mail déjà existant
 	 */
 	public static final int UNIQUE_MAIL_ERR=20005;
+	/**
+	 * Echec si le mot de passe actuel est faux
+	 */
+	public static final int ACTUAL_PASSWORD_ERR=20006;
 	
 }

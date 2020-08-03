@@ -1,6 +1,6 @@
 package fr.eni.javaee.eniencheres.bo;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class ArticleVendu {
 	
@@ -8,18 +8,23 @@ public class ArticleVendu {
 	private int id;
 	private String nom;
 	private String description;
-	private LocalDate dateDebut;
-	private LocalDate dateFin;
+	private LocalDateTime dateDebut;
+	private LocalDateTime dateFin;
 	private int prixInitial;
 	private int prixVente;
+	private String etatVente;
+	public Utilisateur utilisateur;
+	public Categorie categorie;
+	public Retrait retrait;
+	public String imagePath;
 	
 	//constructeurs
 	public ArticleVendu() {
 		super();
 	}
 
-	public ArticleVendu(int id, String nom, String description, LocalDate dateDebut,
-			LocalDate dateFin, int prixInitial, int prixVente) {
+	public ArticleVendu(int id, String nom, String description, LocalDateTime dateDebut, LocalDateTime dateFin,
+			int prixInitial, int prixVente, String etatVente) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -28,20 +33,27 @@ public class ArticleVendu {
 		this.dateFin = dateFin;
 		this.prixInitial = prixInitial;
 		this.prixVente = prixVente;
+		this.etatVente = etatVente;
 	}
 
-	public ArticleVendu(String nom, String description, LocalDate dateDebut, LocalDate dateFin,
-			int prixInitial, int prixVente) {
+	public ArticleVendu(int id, String nom, String description, LocalDateTime dateDebut, LocalDateTime dateFin,
+			int prixInitial, int prixVente, String etatVente, Utilisateur utilisateur, Categorie categorie,
+			Retrait retrait, String imagePath) {
 		super();
+		this.id = id;
 		this.nom = nom;
 		this.description = description;
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
 		this.prixInitial = prixInitial;
 		this.prixVente = prixVente;
+		this.etatVente = etatVente;
+		this.utilisateur = utilisateur;
+		this.categorie = categorie;
+		this.retrait = retrait;
+		this.imagePath = imagePath;
 	}
 
-	//getters et setters
 	public int getId() {
 		return id;
 	}
@@ -66,19 +78,19 @@ public class ArticleVendu {
 		this.description = description;
 	}
 
-	public LocalDate getDateDebut() {
+	public LocalDateTime getDateDebut() {
 		return dateDebut;
 	}
 
-	public void setDateDebut(LocalDate dateDebut) {
+	public void setDateDebut(LocalDateTime dateDebut) {
 		this.dateDebut = dateDebut;
 	}
 
-	public LocalDate getDateFin() {
+	public LocalDateTime getDateFin() {
 		return dateFin;
 	}
 
-	public void setDateFin(LocalDate dateFin) {
+	public void setDateFin(LocalDateTime dateFin) {
 		this.dateFin = dateFin;
 	}
 
@@ -97,5 +109,54 @@ public class ArticleVendu {
 	public void setPrixVente(int prixVente) {
 		this.prixVente = prixVente;
 	}
+
+	public String getEtatVente() {
+		return etatVente;
+	}
+
+	public void setEtatVente(String etatVente) {
+		this.etatVente = etatVente;
+	}
+
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
+
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
+	}
+
+	public Categorie getCategorie() {
+		return categorie;
+	}
+
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
+	}
+
+	public Retrait getRetrait() {
+		return retrait;
+	}
+
+	public void setRetrait(Retrait retrait) {
+		this.retrait = retrait;
+	}
+
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+
+	@Override
+	public String toString() {
+		return "ArticleVendu [id=" + id + ", nom=" + nom + ", description=" + description + ", dateDebut=" + dateDebut
+				+ ", dateFin=" + dateFin + ", prixInitial=" + prixInitial + ", prixVente=" + prixVente + ", etatVente="
+				+ etatVente + ", utilisateur=" + utilisateur + ", categorie=" + categorie + ", retrait=" + retrait
+				+ ", imagePath=" + imagePath + "]";
+	}
+
 	
 }

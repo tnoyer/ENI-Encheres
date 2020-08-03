@@ -68,7 +68,8 @@ public class ServletModifyProfil extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
-		int id = Integer.parseInt(request.getParameter("idUser"));
+		HttpSession session = request.getSession();
+		int id = (int) session.getAttribute("id");
 		System.out.println("id modify : " + id);
 		String pseudo = request.getParameter("pseudo");
 		String nom = request.getParameter("nom");
@@ -78,15 +79,15 @@ public class ServletModifyProfil extends HttpServlet {
 		String rue = request.getParameter("rue");
 		String cp = request.getParameter("cp");
 		String ville = request.getParameter("ville");
-		String mdp = request.getParameter("password");
+		String actualPassword = request.getParameter("actualPassword");
+		String newPassword = request.getParameter("newPassword");
 		String confirm = request.getParameter("confirm");
 
 		// Je modifie l'utilisateur
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
 		try {
-			Utilisateur utilisateur = new Utilisateur(id, pseudo, nom, prenom, email, telephone, rue, cp, ville, mdp);
-			utilisateurManager.modifierUtilisateur(utilisateur, confirm);
-			HttpSession session = request.getSession();
+			Utilisateur utilisateur = new Utilisateur(id, pseudo, nom, prenom, email, telephone, rue, cp, ville, newPassword);
+			utilisateurManager.modifierUtilisateur(utilisateur, actualPassword, confirm);
 			session.removeAttribute("pseudo");
 			session.setAttribute("pseudo", utilisateur.getPseudo());
 			response.sendRedirect(request.getContextPath() + "/encheres");
@@ -104,7 +105,7 @@ public class ServletModifyProfil extends HttpServlet {
 			e.printStackTrace();
 			System.out.println(e.getListeCodesErreur());
 			request.setAttribute("listeCodesErreur", e.getListeCodesErreur());
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/register.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/modifyProfil.jsp");
 			rd.forward(request, response);
 		}
 	}

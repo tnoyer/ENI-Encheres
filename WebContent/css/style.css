@@ -156,3 +156,28 @@ ul{
 	margin: 10px 50px;
 	padding: 10px 70px;
 }
+
+/* PAGE NOUVELLE VENTE */
+.block-vte-art{
+	display: flex;
+	padding: 10px;
+	justify-content: center;
+}
+
+.form-vte-art{
+	margin-left: 50px;
+}
+
+.label-vte-art{
+	width: 180px;
+	text-align: left;
+}
+
+.block-btn-vte-art{
+	padding: 10px;
+}
+
+.btn-vte-art, #btn-vte-art-reset{
+	margin: 10px 50px;
+	padding: 10px 70px;
+}
