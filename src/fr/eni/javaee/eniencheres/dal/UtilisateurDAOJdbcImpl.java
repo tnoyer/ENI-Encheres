@@ -16,7 +16,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			+ "insert into UTILISATEURS(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) "
 			+ "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String SELECT_BY_ID = ""
-			+ "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit "
+			+ "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur "
 			+ "FROM UTILISATEURS " + "WHERE no_utilisateur = ?";
 	private static final String DELETE_UTILISATEUR = "DELETE FROM UTILISATEURS WHERE no_utilisateur=?";
 	private static final String UPDATE_UTILISATEUR = "UPDATE UTILISATEURS SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=? WHERE no_utilisateur=?";
@@ -105,9 +105,9 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			ResultSet rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				utilisateur = new Utilisateur(rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"),
+				utilisateur = new Utilisateur(rs.getInt("no_utilisateur"), rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"),
 						rs.getString("email"), rs.getString("telephone"), rs.getString("rue"),
-						rs.getString("code_postal"), rs.getString("ville"), rs.getInt("credit"));
+						rs.getString("code_postal"), rs.getString("ville"), rs.getString("mot_de_passe"), rs.getInt("credit"), rs.getInt("administrateur"));
 				return utilisateur;
 			} else {
 				throw new Exception("KO");

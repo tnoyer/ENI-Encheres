@@ -77,7 +77,6 @@ public class ServletRegister extends HttpServlet {
 			request.setAttribute("rue", rue);
 			request.setAttribute("cp", cp);
 			request.setAttribute("ville", ville);
-			// Sinon je retourne à la page d'inscription pour indiquer les problèmes:
 			e.printStackTrace();
 			System.out.println(e.getListeCodesErreur());
 			request.setAttribute("listeCodesErreur", e.getListeCodesErreur());

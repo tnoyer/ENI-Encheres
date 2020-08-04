@@ -57,17 +57,45 @@ public class UtilisateurManager {
 		this.utilisateurDAO.deleteUtilisateur(id);
 	}
 	
-	public void modifierUtilisateur(Utilisateur utilisateur, String confirm) throws BusinessException{
+	public void modifierUtilisateur(Utilisateur utilisateur, String actualPassword, String confirm) throws BusinessException{
 		BusinessException businessException = new BusinessException();
 		this.validerPseudo(utilisateur.getPseudo(), businessException);
 		this.validerMotDePasse(utilisateur.getMotDePasse(), confirm, businessException);
-		this.validerChamps(utilisateur, confirm, businessException);
+		this.validerChampsModify(utilisateur, actualPassword, confirm, businessException);
 		this.validerEmail(utilisateur.getEmail(), businessException);
+		this.validerActualPassword(utilisateur.getId(), actualPassword, businessException);
 		
 		if (!businessException.hasErreurs()) {
 			this.utilisateurDAO.modifyUtilisateur(utilisateur);;
 		} else {
 			throw businessException;
+		}
+	}
+
+	private void validerChampsModify(Utilisateur utilisateur, String actualPassword, String confirm,
+			BusinessException businessException) {
+		if (utilisateur.getPseudo() == null || utilisateur.getPseudo().trim().isEmpty() 
+				|| utilisateur.getNom() == null || utilisateur.getNom().trim().isEmpty() 
+				|| utilisateur.getPrenom() == null || utilisateur.getPrenom().trim().isEmpty() 
+				|| utilisateur.getEmail() == null || utilisateur.getEmail().trim().isEmpty() 
+				|| utilisateur.getRue() == null || utilisateur.getRue().trim().isEmpty() 
+				|| utilisateur.getCodePostal() == null || utilisateur.getCodePostal().trim().isEmpty() 
+				|| utilisateur.getVille() == null || utilisateur.getVille().trim().isEmpty() 
+				|| actualPassword == null || actualPassword.trim().isEmpty()
+				|| utilisateur.getMotDePasse() == null || utilisateur.getMotDePasse().trim().isEmpty() 
+				|| confirm == null || confirm.trim().isEmpty()) {
+			businessException.ajouterErreur(CodesResultatBLL.NOM_CHAMPS_OBLIGATOIRE);
+		}
+		
+	}
+
+	private void validerActualPassword(int id, String actualPassword, BusinessException businessException) throws BusinessException {
+		Utilisateur utilisateur = this.utilisateurDAO.selectById(id);
+		System.out.println("utilisateur : "+utilisateur.toString());
+		System.out.println("actual : "+actualPassword);
+		System.out.println("mdp : "+utilisateur.getMotDePasse());
+		if(!actualPassword.trim().equals(utilisateur.getMotDePasse().trim())) {
+			businessException.ajouterErreur(CodesResultatBLL.ACTUAL_PASSWORD_ERR);
 		}
 	}
 

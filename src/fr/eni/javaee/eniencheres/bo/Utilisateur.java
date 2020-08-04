@@ -19,6 +19,7 @@ public class Utilisateur {
 	private int admin;
 	
 	private List<ArticleVendu> listeArticlesVendus;
+	private List<ArticleVendu> listeArticlesAchetes;
 	
 	//constructeurs
 	public Utilisateur() {
@@ -96,10 +97,11 @@ public class Utilisateur {
 		this.motDePasse = motDePasse;
 	}
 
-	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
+	public Utilisateur(int id, String pseudo, String nom, String prenom, String email, String telephone, String rue,
 			String codePostal, String ville, String motDePasse, int credit, int admin,
-			List<ArticleVendu> listeArticlesVendus) {
+			List<ArticleVendu> listeArticlesVendus, List<ArticleVendu> listeArticlesAchetes) {
 		super();
+		this.id = id;
 		this.pseudo = pseudo;
 		this.nom = nom;
 		this.prenom = prenom;
@@ -112,6 +114,7 @@ public class Utilisateur {
 		this.credit = credit;
 		this.admin = admin;
 		this.listeArticlesVendus = listeArticlesVendus;
+		this.listeArticlesAchetes = listeArticlesAchetes;
 	}
 
 	//getters et setters
@@ -219,13 +222,23 @@ public class Utilisateur {
 		this.listeArticlesVendus = listeArticlesVendus;
 	}
 
-	//toString
+	public List<ArticleVendu> getListeArticlesAchetes() {
+		return listeArticlesAchetes;
+	}
+
+	public void setListeArticlesAchetes(List<ArticleVendu> listeArticlesAchetes) {
+		this.listeArticlesAchetes = listeArticlesAchetes;
+	}
+
 	@Override
 	public String toString() {
 		return "Utilisateur [id=" + id + ", pseudo=" + pseudo + ", nom=" + nom + ", prenom=" + prenom + ", email="
 				+ email + ", telephone=" + telephone + ", rue=" + rue + ", codePostal=" + codePostal + ", ville="
-				+ ville + ", motDePasse=" + motDePasse + ", credit=" + credit + ", admin=" + admin + "]";
+				+ ville + ", motDePasse=" + motDePasse + ", credit=" + credit + ", admin=" + admin
+				+ ", listeArticlesVendus=" + listeArticlesVendus + ", listeArticlesAchetes=" + listeArticlesAchetes
+				+ "]";
 	}
+
 	
 
 }
