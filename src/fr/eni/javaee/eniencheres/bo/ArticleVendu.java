@@ -55,7 +55,7 @@ public class ArticleVendu {
 	}
 
 	public ArticleVendu(String nom, String description, LocalDate dateDebut, LocalDate dateFin, int prixInitial,
-			int prixVente, Utilisateur utilisateur, Categorie categorie, Retrait retrait) {
+			int prixVente, Utilisateur utilisateur, Categorie categorie) {
 		super();
 		this.nom = nom;
 		this.description = description;
@@ -65,7 +65,6 @@ public class ArticleVendu {
 		this.prixVente = prixVente;
 		this.utilisateur = utilisateur;
 		this.categorie = categorie;
-		this.retrait = retrait;
 	}
 
 	public int getId() {

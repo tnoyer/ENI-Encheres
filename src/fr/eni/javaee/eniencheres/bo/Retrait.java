@@ -5,6 +5,7 @@ import java.util.List;
 public class Retrait {
 
 	//attributs
+	private int idUtilisateur;
 	private String rue;
 	private String codePostal;
 	private String ville;
@@ -15,35 +16,41 @@ public class Retrait {
 	public Retrait() {
 		super();
 	}
-	
 
-	public Retrait(String rue, String codePostal, String ville) {
+	public Retrait(int idUtilisateur, String rue, String codePostal, String ville) {
 		super();
+		this.idUtilisateur = idUtilisateur;
 		this.rue = rue;
 		this.codePostal = codePostal;
 		this.ville = ville;
 	}
-	
 
-	public String getCodePostal() {
-		return codePostal;
+	public int getIdUtilisateur() {
+		return idUtilisateur;
 	}
 
-	//getters et setters
+	public void setIdUtilisateur(int idUtilisateur) {
+		this.idUtilisateur = idUtilisateur;
+	}
+
 	public String getRue() {
 		return rue;
 	}
 
-	public String getVille() {
-		return ville;
+	public void setRue(String rue) {
+		this.rue = rue;
+	}
+
+	public String getCodePostal() {
+		return codePostal;
 	}
 
 	public void setCodePostal(String codePostal) {
 		this.codePostal = codePostal;
 	}
 
-	public void setRue(String rue) {
-		this.rue = rue;
+	public String getVille() {
+		return ville;
 	}
 
 	public void setVille(String ville) {
@@ -56,11 +63,6 @@ public class Retrait {
 
 	public void setListeArticlesVendus(List<ArticleVendu> listeArticlesVendus) {
 		this.listeArticlesVendus = listeArticlesVendus;
-	}
-
-	@Override
-	public String toString() {
-		return "Retrait [rue=" + rue + ", codePostal=" + codePostal + ", ville=" + ville + "]";
 	}
 	
 	

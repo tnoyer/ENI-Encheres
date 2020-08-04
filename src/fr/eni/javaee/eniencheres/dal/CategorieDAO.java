@@ -7,5 +7,5 @@ import fr.eni.javaee.eniencheres.bo.Categorie;
 
 public interface CategorieDAO {
 	public List<Categorie> selectAll() throws BusinessException;
-	public Categorie selectById(String nomCat) throws BusinessException;
+	public Categorie selectById(int idCat) throws BusinessException;
 }

@@ -13,7 +13,7 @@ public class CategorieManager {
 		this.categorieDAO = DAOFactory.getCategorieDAO();
 	}
 	
-	public Categorie selectionnerCategorie(String nomCat) throws BusinessException {
-		return this.categorieDAO.selectById(nomCat);
+	public Categorie selectionnerCategorie(int idCat) throws BusinessException {
+		return this.categorieDAO.selectById(idCat);
 	}
 }

@@ -43,13 +43,13 @@
 						name="description" id="description" value="${description}"></textarea>
 				</p>
 				<p>
-					<label class="label-vte-art" for="nomCategorie">Catégories*: </label>
-					<select name="nomCategorie" id="nomCategorie">
-						<option value="">Toutes</option>
-						<option value="informatique">Informatique</option>
-						<option value="ameublement">Ameublement</option>
-						<option value="vetement">Vêtement</option>
-						<option value="sport">Sport et loisirs</option>
+					<label class="label-vte-art" for="categorie">Catégories*: </label>
+					<select name="categorie" id="categorie">
+						<option value="0">Toutes</option>
+						<option value="1">Informatique</option>
+						<option value="2">Ameublement</option>
+						<option value="3">Vêtement</option>
+						<option value="4">Sport et loisirs</option>
 					</select>
 				</p>
 				<p>

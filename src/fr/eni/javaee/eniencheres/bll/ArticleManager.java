@@ -40,10 +40,7 @@ private ArticleDAO articleDAO;
 				|| art.getPrixInitial() == 0 
 				|| art.getPrixVente() == 0
 				|| art.getDateDebut() == null
-				|| art.getDateFin() == null
-				|| art.getRetrait().getRue() == null || art.getRetrait().getRue().trim().isEmpty()
-				|| art.getRetrait().getCodePostal() == null || art.getRetrait().getCodePostal().trim().isEmpty()
-				|| art.getRetrait().getVille() == null || art.getRetrait().getVille().trim().isEmpty()) {
+				|| art.getDateFin() == null) {
 			businessException.ajouterErreur(CodesResultatBLL.NOM_CHAMPS_OBLIGATOIRE);
 		}
 	}

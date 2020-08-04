@@ -7,11 +7,10 @@ import java.util.List;
 
 import fr.eni.javaee.eniencheres.BusinessException;
 import fr.eni.javaee.eniencheres.bo.Categorie;
-import fr.eni.javaee.eniencheres.bo.Utilisateur;
 
 public class CategorieDAOJdbcImpl implements CategorieDAO {
 	
-	private static final String SELECT_BY_ID = "SELECT no_categorie, libelle FROM CATEGORIES WHERE libelle = ?";
+	private static final String SELECT_BY_ID = "SELECT no_categorie, libelle FROM CATEGORIES WHERE no_categorie = ?";
 
 	@Override
 	public List<Categorie> selectAll() throws BusinessException {
@@ -20,16 +19,17 @@ public class CategorieDAOJdbcImpl implements CategorieDAO {
 	}
 
 	@Override
-	public Categorie selectById(String nomCat) throws BusinessException {
+	public Categorie selectById(int idCat) throws BusinessException {
 		Categorie cat;
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_ID);
-			pstmt.setString(1, nomCat);
+			pstmt.setInt(1, idCat);
 
 			ResultSet rs = pstmt.executeQuery();
 
 			if (rs.next()) {
 				cat = new Categorie(rs.getInt("no_categorie"), rs.getString("libelle"));
+				System.out.println("cat : "+cat);
 				return cat;
 			} else {
 				throw new Exception("KO");
