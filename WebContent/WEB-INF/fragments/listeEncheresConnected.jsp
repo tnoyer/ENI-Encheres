@@ -22,14 +22,6 @@
 
 <div class="block-content">
 	<h2>Filtres :</h2>
-	<%-- 
-	<%
-		String articleFiltre = "";
-	if (request.getParameter("articleFiltre") != null) {
-		articleFiltre = request.getParameter("articleFiltre");
-	}
-	%>
-	--%>
 
 	<form action="${pageContext.request.contextPath}/encheres"
 		method="post" class="block-filter-art">
@@ -48,12 +40,52 @@
 					<option value="4">Sport et loisirs</option>
 				</select>
 			</p>
+
+			<div class="block-radio-vte-ach">
+				<div class="inner-radio">
+					<input type="radio" id="achat" name="typeList" value="achat"
+						checked> <label for="achat">Achats</label>
+					<p>
+						<input type="checkbox" id="encheresOuvertes"
+							name="encheresOuvertes"> <label for="encheresOuvertes">Enchères
+							ouvertes</label>
+					</p>
+					<p>
+						<input type="checkbox" id="encheresEnCours" name="encheresEnCours">
+						<label for="encheresEnCours">Mes enchères en cours</label>
+					</p>
+					<p>
+						<input type="checkbox" id="encheresRemportees"
+							name="encheresRemportees"> <label
+							for="encheresRemportees">Mes enchères remportées</label>
+					</p>
+				</div>
+
+				<div class="inner-radio">
+					<input type="radio" id="vente" name="typeList" value="vente">
+					<label for="vente">Mes ventes</label>
+					<p>
+						<input type="checkbox" id="ventesEnCours" name="ventesEnCours">
+						<label for="ventesEnCours">Mes ventes en cours</label>
+					</p>
+					<p>
+						<input type="checkbox" id="ventesNonDébutées"
+							name="ventesNonDébutées"> <label for="ventesNonDébutées">Mes
+							ventes non débutées</label>
+					</p>
+					<p>
+						<input type="checkbox" id="ventesTerminees" name="ventesTerminees">
+						<label for="ventesTerminees">Ventes terminées</label>
+					</p>
+				</div>
+			</div>
+
 		</div>
 		<div>
 			<input class="btn-submit-filter-art" type="submit" value="Rechercher" />
 		</div>
 	</form>
-	
+
 	<c:if test="${!empty listeCodesErreur}">
 		<div class="block-msg-err">
 			<p style="color: red;">Erreur(s) :</p>
@@ -65,4 +97,27 @@
 		</div>
 	</c:if>
 
-	</div>
+	<c:choose>
+		<c:when test="${listeArticles.size()>0}">
+			<div class="block-liste-encheres">
+				<c:forEach var="a" items="${listeArticles}">
+					<div class="card" id="art-enchere">
+						<h5 class="card-header">${a.nom}</h5>
+						<div class="card-body">
+							<p class="card-text">Prix : ${a.prixVente }</p>
+							<p class="card-text">Fin de l'enchère : ${a.dateFin }</p>
+							<p class="card-text">Vendeur : ${a.utilisateur.pseudo }</p>
+							<a href="${pageContext.request.contextPath}/login"
+								class="btn btn-primary">Détail</a>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<p>Pas de liste actuellement.
+			<p>
+		</c:otherwise>
+	</c:choose>
+
+</div>

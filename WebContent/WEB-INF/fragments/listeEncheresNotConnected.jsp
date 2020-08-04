@@ -18,14 +18,6 @@
 
 <div class="block-content">
 	<h2>Filtres :</h2>
-	<%-- 
-	<%
-		String articleFiltre = "";
-	if (request.getParameter("articleFiltre") != null) {
-		articleFiltre = request.getParameter("articleFiltre");
-	}
-	%>
-	--%>
 
 	<form action="${pageContext.request.contextPath}/encheres"
 		method="post" class="block-filter-art">
@@ -66,11 +58,12 @@
 			<div class="block-liste-encheres">
 				<c:forEach var="a" items="${listeArticles}">
 					<div class="card" id="art-enchere">
-						<h5 class="card-header">Featured</h5>
+						<h5 class="card-header">${a.nom}</h5>
 						<div class="card-body">
-							<h5 class="card-title">Special title treatment</h5>
-							<p class="card-text">With supporting text</p>
-							<a href="#" class="btn btn-primary">Go somewhere</a>
+							<p class="card-text">Prix : ${a.prixVente }</p>
+							<p class="card-text">Fin de l'enchère : ${a.dateFin }</p>
+							<p class="card-text">Vendeur : ${a.utilisateur.pseudo }</p>
+							<a href="${pageContext.request.contextPath}/login" class="btn btn-primary">Détail</a>
 						</div>
 					</div>
 				</c:forEach>

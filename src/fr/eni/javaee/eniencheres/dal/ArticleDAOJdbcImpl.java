@@ -3,7 +3,6 @@ package fr.eni.javaee.eniencheres.dal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,10 +17,16 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 			+ "INSERT INTO ARTICLES_VENDUS(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) "
 			+ "VALUES(?,?,?,?,?,?,?,?)";
 	private static final String SELECT_ALL = ""
-			+ "SELECT nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, pseudo, rue, code_postal, ville, libelle "
+			+ "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, pseudo, rue, code_postal, ville, libelle "
 			+ "FROM ARTICLES_VENDUS av "
 			+ "INNER JOIN UTILISATEURS u ON av.no_utilisateur = u.no_utilisateur "
 			+ "INNER JOIN CATEGORIES c ON av.no_categorie = c.no_categorie";
+	private static final String SELECT_BY_NOM_CATEGORIE = ""
+			+ "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, pseudo, rue, code_postal, ville, libelle "
+			+ "FROM ARTICLES_VENDUS av "
+			+ "INNER JOIN UTILISATEURS u ON av.no_utilisateur = u.no_utilisateur "
+			+ "INNER JOIN CATEGORIES c ON av.no_categorie = c.no_categorie "
+			+ "WHERE nom_article = ? AND c.no_categorie = ?";
 
 	@Override
 	public void insertArticle(ArticleVendu art) throws BusinessException {
@@ -81,6 +86,53 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 			while(rs.next())
 			{
 				unArticle = new ArticleVendu(
+						rs.getInt("no_article"),
+						rs.getString("nom_article"), 
+						rs.getString("description"), 
+						rs.getDate("date_debut_encheres").toLocalDate(), 
+						rs.getDate("date_fin_encheres").toLocalDate(), 
+						rs.getInt("prix_initial"), 
+						rs.getInt("prix_vente"));
+				
+				unUtilisateur = new Utilisateur(rs.getString("pseudo"), rs.getString("rue"),
+						rs.getString("code_postal"), rs.getString("ville"));
+
+				uneCategorie = new Categorie(rs.getString("libelle"));
+
+				unArticle.setUtilisateur(unUtilisateur);
+				unArticle.setCategorie(uneCategorie);
+
+				listeArticles.add(unArticle);
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.LECTURE_ARTICLE_ECHEC);
+			throw businessException;
+		}
+		return listeArticles;
+	}
+
+	@Override
+	public List<ArticleVendu> selectByNomAndCategorie(String nom, int id) throws BusinessException {
+		List<ArticleVendu> listeArticles = new ArrayList<ArticleVendu>();
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_NOM_CATEGORIE);
+			pstmt.setString(1, nom);
+			pstmt.setInt(2, id);
+			ResultSet rs = pstmt.executeQuery();
+			
+			ArticleVendu unArticle;
+			Utilisateur unUtilisateur;
+			Categorie uneCategorie;
+			
+			while(rs.next())
+			{
+				unArticle = new ArticleVendu(
+						rs.getInt("no_article"),
 						rs.getString("nom_article"), 
 						rs.getString("description"), 
 						rs.getDate("date_debut_encheres").toLocalDate(), 

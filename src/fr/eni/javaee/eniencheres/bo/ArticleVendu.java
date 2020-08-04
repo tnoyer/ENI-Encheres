@@ -68,9 +68,10 @@ public class ArticleVendu {
 	}
 
 
-	public ArticleVendu(String nom, String description, LocalDate dateDebut, LocalDate dateFin, int prixInitial,
+	public ArticleVendu(int id, String nom, String description, LocalDate dateDebut, LocalDate dateFin, int prixInitial,
 			int prixVente) {
 		super();
+		this.id = id;
 		this.nom = nom;
 		this.description = description;
 		this.dateDebut = dateDebut;

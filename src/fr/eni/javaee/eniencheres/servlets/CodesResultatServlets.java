@@ -6,4 +6,5 @@ package fr.eni.javaee.eniencheres.servlets;
 public abstract class CodesResultatServlets {
 	
 	public static final int FORMAT_DATE_ERR=30000;
+	public static final int CHAMPS_VIDES=30001;
 }

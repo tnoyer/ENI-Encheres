@@ -31,6 +31,15 @@ private ArticleDAO articleDAO;
 	public List<ArticleVendu> selectionnerlisteArticles() throws BusinessException{
 		return this.articleDAO.selectAll();
 	}
+	
+	public List<ArticleVendu> selectionnerlisteArticlesParNomEtId(String nom, int id) throws BusinessException{
+		return this.articleDAO.selectByNomAndCategorie(nom, id);
+	}
+	
+	public ArticleVendu selectionnerArticle(int id) throws BusinessException{
+		return null;
+		
+	}
 
 	private void validerDate(LocalDate dateDebut, LocalDate dateFin, BusinessException businessException) {
 		if(dateDebut.compareTo(dateFin) > 0) {
