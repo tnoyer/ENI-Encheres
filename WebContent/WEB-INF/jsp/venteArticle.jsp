@@ -40,7 +40,7 @@
 					<label class="label-vte-art" for="description">Description*:
 					</label>
 					<textarea class="input-vte-art" rows="3" cols="20"
-						name="description" id="description" value="${description}"></textarea>
+						name="description" id="description">${description}</textarea>
 				</p>
 				<p>
 					<label class="label-vte-art" for="categorie">Catégories*: </label>

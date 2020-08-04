@@ -122,7 +122,5 @@ public class ServletVenteArticle extends HttpServlet {
 				rd.forward(request, response);
 			}
 		}
-		
 	}
-
 }
