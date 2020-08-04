@@ -1,6 +1,7 @@
 package fr.eni.javaee.eniencheres.bll;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import fr.eni.javaee.eniencheres.BusinessException;
 import fr.eni.javaee.eniencheres.bo.ArticleVendu;
@@ -25,6 +26,10 @@ private ArticleDAO articleDAO;
 		} else {
 			throw businessException;
 		}
+	}
+	
+	public List<ArticleVendu> selectionnerlisteArticles() throws BusinessException{
+		return this.articleDAO.selectAll();
 	}
 
 	private void validerDate(LocalDate dateDebut, LocalDate dateFin, BusinessException businessException) {

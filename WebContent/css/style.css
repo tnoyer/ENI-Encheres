@@ -92,6 +92,7 @@ ul{
 /* PAGE LISTE ENCHERES */
 .block-filter-art{
 	display: flex;
+	padding: 10px;
 }
 
 .input-filter-art{
@@ -115,6 +116,17 @@ ul{
 .btn-submit-filter-art{
 	padding:  10px 70px;
 	height: 100%;
+}
+
+.block-liste-encheres{
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	padding: 10px;
+}
+
+#art-enchere{
+	margin: 10px;
 }
 
 /* PAGE PROFIL */

@@ -93,6 +93,13 @@ public class ServletVenteArticle extends HttpServlet {
 		int idUser = (int) session.getAttribute("id");
 		
 		if(listeCodesErreur.size()>0) {
+			request.setAttribute("nomArticle", nomArticle);
+			request.setAttribute("description", description);
+			request.setAttribute("idCategorie", idCategorie);
+			request.setAttribute("prix", prix);
+			request.setAttribute("rue", rue);
+			request.setAttribute("cp", cp);
+			request.setAttribute("ville", ville);
 			request.setAttribute("listeCodesErreur",listeCodesErreur);
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/venteArticle.jsp");
 			rd.forward(request, response);
