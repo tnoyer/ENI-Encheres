@@ -92,10 +92,8 @@ ul{
 /* PAGE LISTE ENCHERES */
 .block-filter-art{
 	display: flex;
-}
-
-.input-filter-art{
-	width: 100%;
+	padding: 10px;
+	align-items: center;
 }
 
 .block-art-cat{
@@ -113,8 +111,26 @@ ul{
 }
 
 .btn-submit-filter-art{
-	padding:  10px 70px;
-	height: 100%;
+	padding:  20px 70px;
+}
+
+.block-radio-vte-ach{
+	display: flex;
+}
+
+.inner-radio{
+	padding: 10px;
+}
+
+.block-liste-encheres{
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	padding: 10px;
+}
+
+#art-enchere{
+	margin: 10px;
 }
 
 /* PAGE PROFIL */
@@ -129,6 +145,11 @@ ul{
 }
 
 #btn-profil-modify{
+	margin: 10px;
+	padding: 10px 70px;
+}
+
+#btn-profil-prev{
 	margin: 10px;
 	padding: 10px 70px;
 }
@@ -180,4 +201,16 @@ ul{
 .btn-vte-art, #btn-vte-art-reset{
 	margin: 10px 50px;
 	padding: 10px 70px;
+}
+
+/* PAGE DETAIL VENTE */
+.block-detail-vente{
+	text-align: center;
+	padding: 10px;
+}
+
+.inner-detail-vente{
+	width: 50%;
+	margin: auto;
+	padding: 10px;
 }

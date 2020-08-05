@@ -93,6 +93,13 @@ public class ServletVenteArticle extends HttpServlet {
 		int idUser = (int) session.getAttribute("id");
 		
 		if(listeCodesErreur.size()>0) {
+			request.setAttribute("nomArticle", nomArticle);
+			request.setAttribute("description", description);
+			request.setAttribute("idCategorie", idCategorie);
+			request.setAttribute("prix", prix);
+			request.setAttribute("rue", rue);
+			request.setAttribute("cp", cp);
+			request.setAttribute("ville", ville);
 			request.setAttribute("listeCodesErreur",listeCodesErreur);
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/venteArticle.jsp");
 			rd.forward(request, response);
@@ -105,8 +112,7 @@ public class ServletVenteArticle extends HttpServlet {
 				Categorie categorie = categorieManager.selectionnerCategorie(idCategorie);
 				ArticleVendu article = new ArticleVendu(nomArticle, description, dateDebut, dateFin, prix, prix, utilisateur, categorie);
 				articleManager.insererArticle(article);
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/listeEncheres.jsp");
-				rd.forward(request, response);
+				response.sendRedirect(request.getContextPath()+"/encheres");
 			} catch (BusinessException e) {
 				// je renvois les champs déjà remplis avant l'erreur
 				request.setAttribute("nomArticle", nomArticle);

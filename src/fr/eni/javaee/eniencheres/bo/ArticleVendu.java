@@ -67,6 +67,19 @@ public class ArticleVendu {
 		this.categorie = categorie;
 	}
 
+
+	public ArticleVendu(int id, String nom, String description, LocalDate dateDebut, LocalDate dateFin, int prixInitial,
+			int prixVente) {
+		super();
+		this.id = id;
+		this.nom = nom;
+		this.description = description;
+		this.dateDebut = dateDebut;
+		this.dateFin = dateFin;
+		this.prixInitial = prixInitial;
+		this.prixVente = prixVente;
+	}
+
 	public int getId() {
 		return id;
 	}

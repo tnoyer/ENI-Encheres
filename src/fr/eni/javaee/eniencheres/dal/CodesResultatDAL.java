@@ -44,5 +44,9 @@ public abstract class CodesResultatDAL {
 	 * echec de la lecture de la categorie
 	 */
 	public static final int SELECT_CAT_ECHEC=10008;
+	/**
+	 * echec de la lecture de l'article
+	 */
+	public static final int LECTURE_ARTICLE_ECHEC=10009;
 	
 }

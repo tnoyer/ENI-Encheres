@@ -8,6 +8,12 @@ public class Categorie {
 	public Categorie() {
 		super();
 	}
+	
+	public Categorie(String libelle) {
+		super();
+		this.libelle = libelle;
+	}
+
 
 	public Categorie(int id, String libelle) {
 		super();
