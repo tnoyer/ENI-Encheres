@@ -1,10 +1,10 @@
 package fr.eni.javaee.eniencheres.bo;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Enchere {
 
-	private LocalDateTime date;
+	private LocalDate date;
 	private int montant;
 	public ArticleVendu articleVendu;
 	public Utilisateur utilisateur;
@@ -12,14 +12,8 @@ public class Enchere {
 	public Enchere() {
 		super();
 	}
-	
-	public Enchere(LocalDateTime date, int montant) {
-		super();
-		this.date = date;
-		this.montant = montant;
-	}
 
-	public Enchere(LocalDateTime date, int montant, ArticleVendu articleVendu, Utilisateur utilisateur) {
+	public Enchere(LocalDate date, int montant, ArticleVendu articleVendu, Utilisateur utilisateur) {
 		super();
 		this.date = date;
 		this.montant = montant;
@@ -27,11 +21,11 @@ public class Enchere {
 		this.utilisateur = utilisateur;
 	}
 
-	public LocalDateTime getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDateTime date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 
@@ -57,12 +51,6 @@ public class Enchere {
 
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
-	}
-
-	@Override
-	public String toString() {
-		return "Enchere [date=" + date + ", montant=" + montant + ", articleVendu=" + articleVendu + ", utilisateur="
-				+ utilisateur + "]";
 	}
 	
 	
