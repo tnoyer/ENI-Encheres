@@ -17,7 +17,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 			+ "INSERT INTO ARTICLES_VENDUS(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) "
 			+ "VALUES(?,?,?,?,?,?,?,?)";
 	private static final String SELECT_ALL = ""
-			+ "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, pseudo, rue, code_postal, ville, libelle "
+			+ "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, av.no_utilisateur, pseudo, rue, code_postal, ville, libelle "
 			+ "FROM ARTICLES_VENDUS av "
 			+ "INNER JOIN UTILISATEURS u ON av.no_utilisateur = u.no_utilisateur "
 			+ "INNER JOIN CATEGORIES c ON av.no_categorie = c.no_categorie";
@@ -94,7 +94,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 						rs.getInt("prix_initial"), 
 						rs.getInt("prix_vente"));
 				
-				unUtilisateur = new Utilisateur(rs.getString("pseudo"), rs.getString("rue"),
+				unUtilisateur = new Utilisateur(rs.getInt("no_utilisateur"), rs.getString("pseudo"), rs.getString("rue"),
 						rs.getString("code_postal"), rs.getString("ville"));
 
 				uneCategorie = new Categorie(rs.getString("libelle"));

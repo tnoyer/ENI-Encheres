@@ -62,7 +62,7 @@
 						<div class="card-body">
 							<p class="card-text">Prix : ${a.prixVente }</p>
 							<p class="card-text">Fin de l'enchère : ${a.dateFin }</p>
-							<p class="card-text">Vendeur : ${a.utilisateur.pseudo }</p>
+							<p class="card-text">Vendeur : <a href="${pageContext.request.contextPath}/profil?idUser=${a.utilisateur.id}">${a.utilisateur.pseudo }</a></p>
 							<a href="${pageContext.request.contextPath}/login" class="btn btn-primary">Détail</a>
 						</div>
 					</div>

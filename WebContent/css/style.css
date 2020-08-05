@@ -149,6 +149,11 @@ ul{
 	padding: 10px 70px;
 }
 
+#btn-profil-prev{
+	margin: 10px;
+	padding: 10px 70px;
+}
+
 /* PAGE MODIF PROFIL  */
 .block-modify-profil{
 	text-align: center;

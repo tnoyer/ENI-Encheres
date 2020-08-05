@@ -37,6 +37,7 @@ public class ServletProfil extends HttpServlet {
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
 		try {
 			Utilisateur utilisateur = utilisateurManager.selectionnerUtilisateurParId(idUser);
+			request.setAttribute("idUser", idUser);
 			request.setAttribute("pseudo", utilisateur.getPseudo());
 			request.setAttribute("nom", utilisateur.getNom());
 			request.setAttribute("prenom", utilisateur.getPrenom());
