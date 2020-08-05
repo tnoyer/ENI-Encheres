@@ -36,5 +36,9 @@ public abstract class CodesResultatBLL {
 	 * Echec si date de début est supérieur à la date de fin
 	 */
 	public static final int DATE_ERR=20007;
+	/**
+	 * echec si date de début est supérieur à la date du jour
+	 */
+	public static final int DATE_DEBUT_ERR=20008;
 	
 }

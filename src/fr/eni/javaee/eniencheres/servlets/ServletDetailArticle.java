@@ -34,10 +34,11 @@ public class ServletDetailArticle extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArticleManager articleManager = new ArticleManager();
-		int idArticle = 0;
+		int idArticle = Integer.parseInt(request.getParameter("idArt"));
 		try {
 			ArticleVendu art = articleManager.selectionnerArticle(idArticle);
-			request.setAttribute("article", art);
+			System.out.println(art);
+			request.setAttribute("art", art);
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/detailArticle.jsp");
 			rd.forward(request, response);
 		} catch (BusinessException e) {

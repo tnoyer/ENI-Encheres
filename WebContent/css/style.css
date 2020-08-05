@@ -202,3 +202,15 @@ ul{
 	margin: 10px 50px;
 	padding: 10px 70px;
 }
+
+/* PAGE DETAIL VENTE */
+.block-detail-vente{
+	text-align: center;
+	padding: 10px;
+}
+
+.inner-detail-vente{
+	width: 50%;
+	margin: auto;
+	padding: 10px;
+}

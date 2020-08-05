@@ -43,7 +43,7 @@
 
 			<div class="block-radio-vte-ach">
 				<div class="inner-radio">
-					<input type="radio" id="achat" name="typeList" value="achat"
+					<input type="radio" id="achat" name="radioChoice" value="achat"
 						checked> <label for="achat">Achats</label>
 					<p>
 						<input type="checkbox" id="encheresOuvertes"
@@ -62,15 +62,15 @@
 				</div>
 
 				<div class="inner-radio">
-					<input type="radio" id="vente" name="typeList" value="vente">
+					<input type="radio" id="vente" name="radioChoice" value="vente">
 					<label for="vente">Mes ventes</label>
 					<p>
 						<input type="checkbox" id="ventesEnCours" name="ventesEnCours">
 						<label for="ventesEnCours">Mes ventes en cours</label>
 					</p>
 					<p>
-						<input type="checkbox" id="ventesNonDébutées"
-							name="ventesNonDébutées"> <label for="ventesNonDébutées">Mes
+						<input type="checkbox" id="ventesNonDebutees"
+							name="ventesNonDebutees"> <label for="ventesNonDebutees">Mes
 							ventes non débutées</label>
 					</p>
 					<p>
@@ -107,7 +107,7 @@
 							<p class="card-text">Prix : ${a.prixVente }</p>
 							<p class="card-text">Fin de l'enchère : ${a.dateFin }</p>
 							<p class="card-text">Vendeur : <a href="${pageContext.request.contextPath}/profil?idUser=${a.utilisateur.id}">${a.utilisateur.pseudo }</a></p>
-							<a href="${pageContext.request.contextPath}/detail"
+							<a href="${pageContext.request.contextPath}/detail?idArt=${a.id}"
 								class="btn btn-primary">Détail</a>
 						</div>
 					</div>

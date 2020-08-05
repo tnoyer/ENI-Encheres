@@ -1,6 +1,7 @@
 package fr.eni.javaee.eniencheres.bll;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import fr.eni.javaee.eniencheres.BusinessException;
@@ -32,18 +33,33 @@ private ArticleDAO articleDAO;
 		return this.articleDAO.selectAll();
 	}
 	
-	public List<ArticleVendu> selectionnerlisteArticlesParNomEtId(String nom, int id) throws BusinessException{
-		return this.articleDAO.selectByNomAndCategorie(nom, id);
+	public List<ArticleVendu> selectionnerlisteArticlesParNomEtCategorie(String nom, int idCat) throws BusinessException{
+		return this.articleDAO.selectByNomAndCategorie(nom, idCat);
+	}
+	
+	public List<ArticleVendu> selectionnerListeArticlesAchat(String nom, int idCat, String encheresOuvertes, String encheresEnCours, String encheresRemportees, int idUser) throws BusinessException{
+		return this.articleDAO.selectListeAchat(nom, idCat, encheresOuvertes, encheresEnCours, encheresRemportees, idUser);
+	}
+	
+	public List<ArticleVendu> selectionnerListeArticlesVente(String nom, int idCat, String ventesEnCours, String ventesNonDebutees, String ventesTerminees, int idUser) throws BusinessException{
+		return this.articleDAO.selectListeVente(nom, idCat, ventesEnCours, ventesNonDebutees, ventesTerminees, idUser);
 	}
 	
 	public ArticleVendu selectionnerArticle(int id) throws BusinessException{
-		return null;
+		return this.articleDAO.selectById(id);
 		
 	}
 
 	private void validerDate(LocalDate dateDebut, LocalDate dateFin, BusinessException businessException) {
 		if(dateDebut.compareTo(dateFin) > 0) {
 			businessException.ajouterErreur(CodesResultatBLL.DATE_ERR);
+		}
+		LocalDate dateJour = LocalDate.now();
+		DateTimeFormatter formatters = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	    String text = dateJour.format(formatters);
+	    dateJour = LocalDate.parse(text, formatters);
+		if(dateDebut.compareTo(dateJour) < 0) {
+			businessException.ajouterErreur(CodesResultatBLL.DATE_DEBUT_ERR);
 		}
 	}
 
