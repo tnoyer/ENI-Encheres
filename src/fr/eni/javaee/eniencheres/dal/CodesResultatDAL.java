@@ -48,5 +48,17 @@ public abstract class CodesResultatDAL {
 	 * echec de la lecture de l'article
 	 */
 	public static final int LECTURE_ARTICLE_ECHEC=10009;
+	/**
+	 * Echec de la lecture de l'enchère
+	 */
+	public static final int LECTURE_ENCHERE_ECHEC=10010;
+	/**
+	 * Echec lors de la modification du crédit
+	 */
+	public static final int UPDATE_CREDIT_ERR=10011;
+	/**
+	 * Echec lors de la modification de l'enchere
+	 */
+	public static final int UPDATE_ENCHERE_ERR=10012;
 	
 }

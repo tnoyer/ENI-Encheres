@@ -214,3 +214,8 @@ ul{
 	margin: auto;
 	padding: 10px;
 }
+
+#btn-detail-article-prev{
+	margin: 10px;
+	padding: 10px 70px;
+}

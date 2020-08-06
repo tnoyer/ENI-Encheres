@@ -6,19 +6,19 @@ public class Enchere {
 
 	private LocalDate date;
 	private int montant;
-	public ArticleVendu articleVendu;
-	public Utilisateur utilisateur;
+	private int idUtilisateur;
+	private int idArticle;
 	
 	public Enchere() {
 		super();
 	}
 
-	public Enchere(LocalDate date, int montant, ArticleVendu articleVendu, Utilisateur utilisateur) {
+	public Enchere(LocalDate date, int montant, int idUtilisateur, int idArticle) {
 		super();
 		this.date = date;
 		this.montant = montant;
-		this.articleVendu = articleVendu;
-		this.utilisateur = utilisateur;
+		this.idUtilisateur = idUtilisateur;
+		this.idArticle = idArticle;
 	}
 
 	public LocalDate getDate() {
@@ -37,21 +37,21 @@ public class Enchere {
 		this.montant = montant;
 	}
 
-	public ArticleVendu getArticleVendu() {
-		return articleVendu;
+	public int getIdUtilisateur() {
+		return idUtilisateur;
 	}
 
-	public void setArticleVendu(ArticleVendu articleVendu) {
-		this.articleVendu = articleVendu;
+	public void setIdUtilisateur(int idUtilisateur) {
+		this.idUtilisateur = idUtilisateur;
 	}
 
-	public Utilisateur getUtilisateur() {
-		return utilisateur;
+	public int getIdArticle() {
+		return idArticle;
 	}
 
-	public void setUtilisateur(Utilisateur utilisateur) {
-		this.utilisateur = utilisateur;
+	public void setIdArticle(int idArticle) {
+		this.idArticle = idArticle;
 	}
-	
+
 	
 }

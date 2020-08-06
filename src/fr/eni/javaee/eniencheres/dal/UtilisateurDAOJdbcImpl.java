@@ -22,6 +22,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	private static final String UPDATE_UTILISATEUR = "UPDATE UTILISATEURS SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=? WHERE no_utilisateur=?";
 	private static final String SELECT_BY_PSEUDO = "SELECT * FROM UTILISATEURS WHERE pseudo=? ";
 	private static final String SELECT_BY_MAIL = "SELECT * FROM UTILISATEURS WHERE email=? ";
+	private static final String UPDATE_CREDIT = "UPDATE UTILISATEURS SET credit=? WHERE no_utilisateur=?";
 
 	@Override
 	public Utilisateur selectByLoginAndPassword(String login, String password) throws BusinessException {
@@ -205,5 +206,22 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			throw businessException;
 		}
 		return unique;
+	}
+
+	@Override
+	public void modifyCredit(int id, int credit) throws BusinessException {
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pstmt = cnx.prepareStatement(UPDATE_CREDIT);
+			pstmt.setInt(1, credit);
+			pstmt.setInt(2, id);
+			pstmt.executeUpdate();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.UPDATE_CREDIT_ERR);
+			throw businessException;
+		}
+		
 	}
 }
