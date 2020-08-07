@@ -50,6 +50,7 @@ public class ServletEncherir extends HttpServlet {
 			Utilisateur encherisseurPrecedent = null;
 			Utilisateur utilisateur = utilisateurManager.selectionnerUtilisateurParId(idUser);
 			ArticleVendu article = articleManager.selectionnerArticle(idArt);
+			boolean isPrecedentEncherisseur = false;
 			//infos sur la précedente enchère 
 			Enchere encherePrecedente = articleManager.selectionnerDerniereEnchere(idArt);
 			int montantEncherePrecedente = 0;
@@ -61,19 +62,30 @@ public class ServletEncherir extends HttpServlet {
 			Enchere encherePrecedenteUtilisateurConnecte = articleManager.selectionnerDerniereEnchereUtilisateurConnecte(idArt, idUser);
 			if(encherePrecedenteUtilisateurConnecte != null) {
 				//traitement de la proposition d'une nouvelle enchère
+				System.out.println();
 				articleManager.modifierEnchere(idUser, idArt, prix, article.getPrixVente(), utilisateur.getCredit());
 			} else {
 				//traitement de la proposition d'une première enchère
 				articleManager.insererEnchere(idUser, idArt, prix, article.getPrixVente(), utilisateur.getCredit());
 			}
-			//traitement du crédit du précédent encherisseur
 			if(encherePrecedente != null) {
+				if(encherePrecedenteUtilisateurConnecte != null) {
+					if(encherePrecedente.getIdUtilisateur() == encherePrecedenteUtilisateurConnecte.getIdUtilisateur()) {
+						isPrecedentEncherisseur = true;
+					}
+				} 
+			}
+			if(isPrecedentEncherisseur) {
+				//traitement du credit du nouvel encherisseur si c'était déjà l'utilisateur connecté
+				int newCredit = utilisateur.getCredit() - prix + montantEncherePrecedente;
+				utilisateurManager.modifierCredit(idUser, newCredit);
+			} else {
+				//traitement du credit du nouvel encherisseur si ce n'était pas lui le précédent encherisseur
 				int newCreditEncherisseurPrecedent = encherisseurPrecedent.getCredit() + montantEncherePrecedente;
 				utilisateurManager.modifierCredit(encherisseurPrecedent.getId(), newCreditEncherisseurPrecedent);
+				int newCredit = utilisateur.getCredit() - prix;
+				utilisateurManager.modifierCredit(idUser, newCredit);
 			}
-			//traitement du credit du nouvel encherisseur
-			int newCredit = utilisateur.getCredit() - prix;
-			utilisateurManager.modifierCredit(idUser, newCredit);
 			
 			response.sendRedirect(request.getContextPath() + "/encheres");
 		} catch (BusinessException e) {
