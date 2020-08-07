@@ -39,7 +39,7 @@ public class ServletListeEncheres extends HttpServlet {
 			throws ServletException, IOException {
 		ArticleManager articleManager = new ArticleManager();
 		try {
-			List<ArticleVendu> listeArticles = articleManager.selectionnerlisteArticles();
+			List<ArticleVendu> listeArticles = articleManager.selectionnerListeArticlesEnCours();
 			System.out.println("liste : " + listeArticles);
 			request.setAttribute("listeArticles", listeArticles);
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/listeEncheres.jsp");
@@ -88,7 +88,7 @@ public class ServletListeEncheres extends HttpServlet {
 					RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/listeEncheres.jsp");
 					rd.forward(request, response);
 				}
-			} else if(radioChoice.contentEquals("vente")) {
+			} else if(radioChoice.equals("vente")) {
 				String ventesEnCours = request.getParameter("ventesEnCours");
 				String ventesNonDebutees = request.getParameter("ventesNonDebutees");
 				String ventesTerminees = request.getParameter("ventesTerminees");

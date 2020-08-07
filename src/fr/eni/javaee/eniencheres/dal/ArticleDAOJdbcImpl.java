@@ -21,6 +21,12 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	private static final String INSERT_ENCHERE = ""
 			+ "INSERT INTO ENCHERES(no_utilisateur, no_article, date_enchere, montant_enchere) "
 			+ "VALUES(?,?,GETDATE(),?)";
+	private static final String SELECT_EN_COURS = ""
+			+ "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, av.no_utilisateur, pseudo, rue, code_postal, ville, c.no_categorie, libelle "
+			+ "FROM ARTICLES_VENDUS av "
+			+ "INNER JOIN UTILISATEURS u ON av.no_utilisateur = u.no_utilisateur "
+			+ "INNER JOIN CATEGORIES c ON av.no_categorie = c.no_categorie "
+			+ "WHERE date_fin_encheres >= GETDATE() AND date_debut_encheres <= GETDATE()";
 	private static final String SELECT_ALL = ""
 			+ "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, av.no_utilisateur, pseudo, rue, code_postal, ville, c.no_categorie, libelle "
 			+ "FROM ARTICLES_VENDUS av "
@@ -41,15 +47,18 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 			+ "FROM ENCHERES "
 			+ "WHERE no_article=?";
 	private static final String SELECT_DERNIERE_ENCHERE = ""
-			+ "SELECT no_utilisateur, no_article, date_enchere, montant_enchere "
+			+ "SELECT TOP 1 no_utilisateur, no_article, date_enchere, montant_enchere "
 			+ "FROM ENCHERES "
 			+ "WHERE no_article=? "
-			+ "ORDER BY no_article DESC "
-			+ "LIMIT 1";
+			+ "ORDER BY date_enchere DESC ";
 	private static final String UPDATE_ENCHERE= ""
 			+ "UPDATE ENCHERES SET no_utilisateur=?, date_enchere=GETDATE(), montant_enchere=? WHERE no_article=?";
 	private static final String MAX_ENCHERE = ""
 			+ "SELECT COUNT(*) "
+			+ "FROM ENCHERES "
+			+ "WHERE no_utilisateur=? AND no_article=?";
+	private static final String SELECT_DERNIERE_ENCHERE_UTILISATEUR_CONNECTE = ""
+			+ "SELECT no_utilisateur, no_article, date_enchere, montant_enchere "
 			+ "FROM ENCHERES "
 			+ "WHERE no_utilisateur=? AND no_article=?";
 	
@@ -291,8 +300,8 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 			if(ventesNonDebutees != null) {
 				where.append(" AND date_debut_encheres >= GETDATE() AND av.no_utilisateur="+idUser);
 			}
-			if(ventesNonDebutees != null) {
-				where.append(" AND date_fin_encheres >= GETDATE() AND av.no_utilisateur="+idUser);
+			if(ventesTerminees != null) {
+				where.append(" AND date_fin_encheres <= GETDATE() AND av.no_utilisateur="+idUser);
 			}
 			System.out.println(where);
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ALL+where);
@@ -502,6 +511,78 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 			throw businessException;
 		}
 		return -1;
+	}
+
+	@Override
+	public Enchere selectDerniereEnchereUtilisateurConnecte(int idArt, int idUser) throws BusinessException {
+		Enchere enchere;
+		try(Connection cnx = ConnectionProvider.getConnection()){
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_DERNIERE_ENCHERE_UTILISATEUR_CONNECTE);
+			pstmt.setInt(1, idUser);
+			pstmt.setInt(2, idArt);
+			ResultSet rs = pstmt.executeQuery();
+			
+			if(rs.next())
+			{
+				enchere = new Enchere(
+						rs.getDate("date_enchere").toLocalDate(), 
+						rs.getInt("montant_enchere"), 
+						rs.getInt("no_utilisateur"),
+						rs.getInt("no_article"));
+			}else {
+				return null;
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.LECTURE_ENCHERE_ECHEC);
+			throw businessException;
+		}
+		return enchere;
+	}
+
+	@Override
+	public List<ArticleVendu> selectEnCours() throws BusinessException {
+		List<ArticleVendu> listeArticles = new ArrayList<ArticleVendu>();
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_EN_COURS);
+			ResultSet rs = pstmt.executeQuery();
+			
+			ArticleVendu unArticle;
+			Utilisateur unUtilisateur;
+			Categorie uneCategorie;
+			
+			while(rs.next())
+			{
+				unArticle = new ArticleVendu(
+						rs.getInt("no_article"),
+						rs.getString("nom_article"), 
+						rs.getString("description"), 
+						rs.getDate("date_debut_encheres").toLocalDate(), 
+						rs.getDate("date_fin_encheres").toLocalDate(), 
+						rs.getInt("prix_initial"), 
+						rs.getInt("prix_vente"));
+				
+				unUtilisateur = new Utilisateur(rs.getInt("no_utilisateur"), rs.getString("pseudo"), rs.getString("rue"),
+						rs.getString("code_postal"), rs.getString("ville"));
+
+				uneCategorie = new Categorie(rs.getInt("no_categorie"), rs.getString("libelle"));
+
+				unArticle.setUtilisateur(unUtilisateur);
+				unArticle.setCategorie(uneCategorie);
+
+				listeArticles.add(unArticle);
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			businessException.ajouterErreur(CodesResultatDAL.LECTURE_ARTICLE_ECHEC);
+			throw businessException;
+		}
+		return listeArticles;
 	}
 
 }

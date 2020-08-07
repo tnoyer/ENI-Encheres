@@ -64,7 +64,8 @@ public class ServletRegister extends HttpServlet {
 			Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, cp, ville, mdp, 0, 0);
 			utilisateurManager.insererUtilisateur(utilisateur, confirm);
 			HttpSession session = request.getSession();
-			session.setAttribute("user", utilisateur);
+			session.setAttribute("id", utilisateur.getId());
+			session.setAttribute("pseudo", utilisateur.getPseudo());
 			session.setAttribute("connected", true);
 			response.sendRedirect(request.getContextPath() + "/encheres");
 		} catch (BusinessException e) {

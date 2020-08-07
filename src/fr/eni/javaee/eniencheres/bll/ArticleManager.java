@@ -30,6 +30,10 @@ private ArticleDAO articleDAO;
 		}
 	}
 	
+	public List<ArticleVendu> selectionnerListeArticlesEnCours() throws BusinessException{
+		return this.articleDAO.selectEnCours();
+	}
+	
 	public List<ArticleVendu> selectionnerlisteArticles() throws BusinessException{
 		return this.articleDAO.selectAll();
 	}
@@ -82,6 +86,10 @@ private ArticleDAO articleDAO;
 	
 	public int enchereExiste(int no_utilisateur, int no_article) throws BusinessException {
 		return this.articleDAO.maxEnchere(no_utilisateur, no_article);
+	}
+	
+	public Enchere selectionnerDerniereEnchereUtilisateurConnecte(int idArt, int idUser) throws BusinessException {
+		return this.articleDAO.selectDerniereEnchereUtilisateurConnecte(idArt, idUser);
 	}
 
 	private void validerMontant(int montant_enchere, int prix_vente, int credit, BusinessException businessException) {

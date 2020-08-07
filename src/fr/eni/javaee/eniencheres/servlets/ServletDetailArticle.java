@@ -39,7 +39,7 @@ public class ServletDetailArticle extends HttpServlet {
 		System.out.println("idArt : "+idArticle);
 		try {
 			ArticleVendu art = articleManager.selectionnerArticle(idArticle);
-			Enchere enchere = articleManager.selectionnerEnchere(idArticle);
+			Enchere enchere = articleManager.selectionnerDerniereEnchere(idArticle);
 			if(enchere != null) {
 				Utilisateur utilisateur = utilisateurManager.selectionnerUtilisateurParId(enchere.getIdUtilisateur());
 				request.setAttribute("utilisateur", utilisateur);
@@ -52,7 +52,8 @@ public class ServletDetailArticle extends HttpServlet {
 		} catch (BusinessException e) {
 			e.printStackTrace();
 			request.setAttribute("listeCodesErreur", e.getListeCodesErreur());
-			response.sendRedirect(request.getContextPath() + "/encheres");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/detailArticle.jsp");
+			rd.forward(request, response);
 		}
 	}
 
