@@ -1,6 +1,9 @@
 package fr.eni.javaee.eniencheres.servlets;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import fr.eni.javaee.eniencheres.BusinessException;
 import fr.eni.javaee.eniencheres.bll.ArticleManager;
+import fr.eni.javaee.eniencheres.bll.CodesResultatBLL;
 import fr.eni.javaee.eniencheres.bll.UtilisateurManager;
 import fr.eni.javaee.eniencheres.bo.ArticleVendu;
 import fr.eni.javaee.eniencheres.bo.Enchere;
@@ -43,6 +47,13 @@ public class ServletDetailArticle extends HttpServlet {
 			if(enchere != null) {
 				Utilisateur utilisateur = utilisateurManager.selectionnerUtilisateurParId(enchere.getIdUtilisateur());
 				request.setAttribute("utilisateur", utilisateur);
+			}
+			LocalDate dateJour = LocalDate.now();
+			DateTimeFormatter formatters = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		    String text = dateJour.format(formatters);
+		    dateJour = LocalDate.parse(text, formatters);
+		    if(art.getDateFin().compareTo(dateJour) < 0) {
+				art.setEtatVente("ET");
 			}
 			System.out.println(art);
 			request.setAttribute("art", art);

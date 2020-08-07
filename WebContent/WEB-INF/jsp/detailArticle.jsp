@@ -8,7 +8,8 @@
 
 	<nav class="navbar navbar-light bg-light">
 		<div class="container">
-			<a class="navbar-brand" href="${pageContext.request.contextPath}/encheres">ENI-Enchères</a>
+			<a class="navbar-brand"
+				href="${pageContext.request.contextPath}/encheres">ENI-Enchères</a>
 		</div>
 	</nav>
 
@@ -24,6 +25,23 @@
 			</ul>
 		</div>
 	</c:if>
+
+	<div style="padding: 10px;">
+		<c:choose>
+			<c:when
+				test="${art.etatVente == 'ET' && enchere.idUtilisateur == id}">
+				<p>Vous avez remporté la vente !
+				<p>
+			</c:when>
+			<c:when
+				test="${art.etatVente == 'ET' && enchere.idUtilisateur != id}">
+				<p>${utilisateur.pseudo}a remporté la vente !</p>
+			</c:when>
+			<c:otherwise>
+
+			</c:otherwise>
+		</c:choose>
+	</div>
 
 	<div class="block-detail-vente">
 		<div class="inner-detail-vente">
@@ -46,7 +64,7 @@
 				${art.utilisateur.ville }</p>
 			<p>Vendeur : ${art.utilisateur.pseudo }</p>
 
-			<c:if test="${id != art.utilisateur.id}">
+			<c:if test="${id != art.utilisateur.id && art.etatVente != 'ET'}">
 				<form
 					action="${pageContext.request.contextPath}/encherir?idArt=${art.id}"
 					method="post">

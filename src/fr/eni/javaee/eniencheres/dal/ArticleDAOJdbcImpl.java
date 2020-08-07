@@ -32,6 +32,12 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 			+ "FROM ARTICLES_VENDUS av "
 			+ "INNER JOIN UTILISATEURS u ON av.no_utilisateur = u.no_utilisateur "
 			+ "INNER JOIN CATEGORIES c ON av.no_categorie = c.no_categorie";
+	private static final String SELECT_ALL_ACHAT = ""
+			+ "SELECT av.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, av.no_utilisateur, pseudo, rue, code_postal, ville, c.no_categorie, libelle, e.no_article, e.no_utilisateur "
+			+ "FROM ARTICLES_VENDUS av "
+			+ "INNER JOIN UTILISATEURS u ON av.no_utilisateur = u.no_utilisateur "
+			+ "INNER JOIN CATEGORIES c ON av.no_categorie = c.no_categorie "
+			+ "INNER JOIN ENCHERES e ON av.no_article = e.no_article";
 	private static final String SELECT_BY_ID= ""
 			+ "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, av.no_utilisateur, pseudo, rue, code_postal, ville, c.no_categorie, libelle "
 			+ "FROM ARTICLES_VENDUS av "
@@ -52,7 +58,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 			+ "WHERE no_article=? "
 			+ "ORDER BY date_enchere DESC ";
 	private static final String UPDATE_ENCHERE= ""
-			+ "UPDATE ENCHERES SET no_utilisateur=?, date_enchere=GETDATE(), montant_enchere=? WHERE no_article=?";
+			+ "UPDATE ENCHERES SET date_enchere=GETDATE(), montant_enchere=? WHERE no_utilisateur=? AND no_article=?";
 	private static final String MAX_ENCHERE = ""
 			+ "SELECT COUNT(*) "
 			+ "FROM ENCHERES "
@@ -227,13 +233,13 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 				where.append(" AND date_fin_encheres >= GETDATE() AND date_debut_encheres <= GETDATE()");
 			}
 			if(encheresEnCours != null) {
-				where.append(" AND date_fin_encheres >= GETDATE() AND date_debut_encheres <= GETDATE() AND u.no_utilisateur = "+idUser);
+				where.append(" AND date_fin_encheres >= GETDATE() AND date_debut_encheres <= GETDATE() AND e.no_utilisateur = "+idUser);
 			}
 			if(encheresRemportees != null) {
-				where.append(" AND date_fin_encheres <= GETDATE() AND u.no_utilisateur = "+idUser);
+				where.append(" AND date_fin_encheres <= GETDATE() AND e.no_utilisateur = "+idUser);
 			}
 			System.out.println(where);
-			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ALL+where);
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ALL_ACHAT+where);
 			if(nom != "" && idCat != 0) {
 				pstmt.setString(1, nom);
 				pstmt.setInt(2, idCat);
@@ -479,8 +485,8 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	public void modifyEnchere(int no_utilisateur, int no_article, int montant_enchere) throws BusinessException {
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(UPDATE_ENCHERE);
-			pstmt.setInt(1, no_utilisateur);
-			pstmt.setInt(2, montant_enchere);
+			pstmt.setInt(1, montant_enchere);
+			pstmt.setInt(2, no_utilisateur);
 			pstmt.setInt(3, no_article);
 			pstmt.executeUpdate();
 			pstmt.close();
