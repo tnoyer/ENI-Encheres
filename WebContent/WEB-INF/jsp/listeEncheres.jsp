@@ -15,6 +15,5 @@
 		</c:otherwise>
 	</c:choose>
 
-	<%@ include file="/WEB-INF/fragments/footer.html"%>
 </body>
 </html>

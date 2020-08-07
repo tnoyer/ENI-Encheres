@@ -4,7 +4,7 @@
 
 <nav class="navbar navbar-light bg-light">
 	<div class="container">
-		<a class="navbar-brand" href="#">ENI-Enchères</a>
+		<a class="navbar-brand" href="${pageContext.request.contextPath}/encheres">ENI-Enchères</a>
 		<div class="block-nav-link">
 			<a class="nav-link"
 				href="${pageContext.request.contextPath}/register">S'incrire</a> <a

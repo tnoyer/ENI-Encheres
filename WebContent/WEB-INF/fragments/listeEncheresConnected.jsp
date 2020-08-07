@@ -4,7 +4,7 @@
 
 <nav class="navbar navbar-light bg-light">
 	<div class="container">
-		<a class="navbar-brand" href="#">ENI-Enchères</a>
+		<a class="navbar-brand" href="${pageContext.request.contextPath}/encheres">ENI-Enchères</a>
 		<div class="block-nav-link">
 			<a class="nav-link"
 				href="${pageContext.request.contextPath}/encheres">Enchères</a> <a
@@ -43,7 +43,7 @@
 
 			<div class="block-radio-vte-ach">
 				<div class="inner-radio">
-					<input type="radio" id="achat" name="radioChoice" value="achat"
+					<input type="radio" onclick="disableVentes()" id="achat" name="radioChoice" value="achat"
 						checked> <label for="achat">Achats</label>
 					<p>
 						<input type="checkbox" id="encheresOuvertes"
@@ -62,7 +62,7 @@
 				</div>
 
 				<div class="inner-radio">
-					<input type="radio" id="vente" name="radioChoice" value="vente">
+					<input type="radio" onclick="disableAchats()" id="vente" name="radioChoice" value="vente">
 					<label for="vente">Mes ventes</label>
 					<p>
 						<input type="checkbox" id="ventesEnCours" name="ventesEnCours">
@@ -119,5 +119,31 @@
 			<p>
 		</c:otherwise>
 	</c:choose>
+	
+	<%@ include file="/WEB-INF/fragments/footer.html"%>
+	<script>
+            function disableVentes() {
+                document.getElementById("ventesEnCours").disabled = true;
+                document.getElementById("ventesNonDebutees").disabled = true;
+                document.getElementById("ventesTerminees").disabled = true;
+                document.getElementById("encheresOuvertes").disabled = false;
+                document.getElementById("encheresEnCours").disabled = false;
+                document.getElementById("encheresRemportees").disabled = false;
+            }
+            function disableAchats() {
+                document.getElementById("encheresOuvertes").disabled = true;
+                document.getElementById("encheresEnCours").disabled = true;
+                document.getElementById("encheresRemportees").disabled = true;
+                document.getElementById("ventesEnCours").disabled = false;
+                document.getElementById("ventesNonDebutees").disabled = false;
+                document.getElementById("ventesTerminees").disabled = false;
+            }
+            $(document).ready(function()
+            {
+                $('#ventesEnCours').prop('disabled', true);
+                $('#ventesNonDebutees').prop('disabled', true);
+                $('#ventesTerminees').prop('disabled', true);
+            });
+        </script>
 
 </div>

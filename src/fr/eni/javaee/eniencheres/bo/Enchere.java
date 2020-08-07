@@ -1,37 +1,31 @@
 package fr.eni.javaee.eniencheres.bo;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Enchere {
 
-	private LocalDateTime date;
+	private LocalDate date;
 	private int montant;
-	public ArticleVendu articleVendu;
-	public Utilisateur utilisateur;
+	private int idUtilisateur;
+	private int idArticle;
 	
 	public Enchere() {
 		super();
 	}
-	
-	public Enchere(LocalDateTime date, int montant) {
+
+	public Enchere(LocalDate date, int montant, int idUtilisateur, int idArticle) {
 		super();
 		this.date = date;
 		this.montant = montant;
+		this.idUtilisateur = idUtilisateur;
+		this.idArticle = idArticle;
 	}
 
-	public Enchere(LocalDateTime date, int montant, ArticleVendu articleVendu, Utilisateur utilisateur) {
-		super();
-		this.date = date;
-		this.montant = montant;
-		this.articleVendu = articleVendu;
-		this.utilisateur = utilisateur;
-	}
-
-	public LocalDateTime getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDateTime date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 
@@ -43,27 +37,21 @@ public class Enchere {
 		this.montant = montant;
 	}
 
-	public ArticleVendu getArticleVendu() {
-		return articleVendu;
+	public int getIdUtilisateur() {
+		return idUtilisateur;
 	}
 
-	public void setArticleVendu(ArticleVendu articleVendu) {
-		this.articleVendu = articleVendu;
+	public void setIdUtilisateur(int idUtilisateur) {
+		this.idUtilisateur = idUtilisateur;
 	}
 
-	public Utilisateur getUtilisateur() {
-		return utilisateur;
+	public int getIdArticle() {
+		return idArticle;
 	}
 
-	public void setUtilisateur(Utilisateur utilisateur) {
-		this.utilisateur = utilisateur;
+	public void setIdArticle(int idArticle) {
+		this.idArticle = idArticle;
 	}
 
-	@Override
-	public String toString() {
-		return "Enchere [date=" + date + ", montant=" + montant + ", articleVendu=" + articleVendu + ", utilisateur="
-				+ utilisateur + "]";
-	}
-	
 	
 }

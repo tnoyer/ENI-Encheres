@@ -9,7 +9,7 @@
 <body>
 	<nav class="navbar navbar-light bg-light">
 		<div class="container">
-			<a class="navbar-brand" href="#">ENI-Enchères</a>
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/encheres">ENI-Enchères</a>
 		</div>
 	</nav>
 
@@ -77,19 +77,19 @@
 					<p>
 						<label class="label-vte-art" for="rue">Rue*: </label> 
 						<input
-							class="input-vte-art" type="text" name="rue" id="rue"
+							class="input-vte-art" type="text" readonly="readonly" name="rue" id="rue"
 							value="${rue}">
 					</p>
 					<p>
 						<label class="label-vte-art" for="cp">Code postal*: </label> 
 						<input
-							class="input-vte-art" type="text" name="cp" id="cp"
+							class="input-vte-art" type="text" readonly="readonly" name="cp" id="cp"
 							value="${cp}">
 					</p>
 					<p>
 						<label class="label-vte-art" for="ville">Ville*: </label> 
 						<input
-							class="input-vte-art" type="text" name="ville" id="ville"
+							class="input-vte-art" type="text" readonly="readonly" name="ville" id="ville"
 							value="${ville}">
 					</p>
 				</fieldset>

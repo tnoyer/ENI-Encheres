@@ -71,6 +71,10 @@ public class UtilisateurManager {
 			throw businessException;
 		}
 	}
+	
+	public void modifierCredit(int idUser, int credit) throws BusinessException {
+		this.utilisateurDAO.modifyCredit(idUser, credit);
+	}
 
 	private void validerChampsModify(Utilisateur utilisateur, String actualPassword, String confirm,
 			BusinessException businessException) {

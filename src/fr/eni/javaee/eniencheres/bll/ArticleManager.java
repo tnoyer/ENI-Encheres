@@ -6,6 +6,7 @@ import java.util.List;
 
 import fr.eni.javaee.eniencheres.BusinessException;
 import fr.eni.javaee.eniencheres.bo.ArticleVendu;
+import fr.eni.javaee.eniencheres.bo.Enchere;
 import fr.eni.javaee.eniencheres.dal.ArticleDAO;
 import fr.eni.javaee.eniencheres.dal.DAOFactory;
 
@@ -29,6 +30,10 @@ private ArticleDAO articleDAO;
 		}
 	}
 	
+	public List<ArticleVendu> selectionnerListeArticlesEnCours() throws BusinessException{
+		return this.articleDAO.selectEnCours();
+	}
+	
 	public List<ArticleVendu> selectionnerlisteArticles() throws BusinessException{
 		return this.articleDAO.selectAll();
 	}
@@ -47,7 +52,53 @@ private ArticleDAO articleDAO;
 	
 	public ArticleVendu selectionnerArticle(int id) throws BusinessException{
 		return this.articleDAO.selectById(id);
+	}
+	
+	public void insererEnchere(int no_utilisateur, int no_article, int montant_enchere, int prix_vente, int credit) throws BusinessException{
+		BusinessException businessException = new BusinessException();
+		this.validerMontant(montant_enchere, prix_vente, credit, businessException);
 		
+		if (!businessException.hasErreurs()) {
+			this.articleDAO.insertEnchere(no_utilisateur, no_article, montant_enchere);
+		} else {
+			throw businessException;
+		}
+	}
+	
+	public Enchere selectionnerEnchere(int idArt) throws BusinessException {
+		return this.articleDAO.selectEnchere(idArt);
+	}
+	
+	public Enchere selectionnerDerniereEnchere(int idArt) throws BusinessException{
+		return this.articleDAO.selectDerniereEnchere(idArt);
+	}
+	
+	public void modifierEnchere(int no_utilisateur, int no_article, int montant_enchere, int prix_vente, int credit) throws BusinessException{
+		BusinessException businessException = new BusinessException();
+		this.validerMontant(montant_enchere, prix_vente, credit, businessException);
+		
+		if (!businessException.hasErreurs()) {
+			this.articleDAO.modifyEnchere(no_utilisateur, no_article, montant_enchere);
+		} else {
+			throw businessException;
+		}
+	}
+	
+	public int enchereExiste(int no_utilisateur, int no_article) throws BusinessException {
+		return this.articleDAO.maxEnchere(no_utilisateur, no_article);
+	}
+	
+	public Enchere selectionnerDerniereEnchereUtilisateurConnecte(int idArt, int idUser) throws BusinessException {
+		return this.articleDAO.selectDerniereEnchereUtilisateurConnecte(idArt, idUser);
+	}
+
+	private void validerMontant(int montant_enchere, int prix_vente, int credit, BusinessException businessException) {
+		if(montant_enchere <= prix_vente) {
+			businessException.ajouterErreur(CodesResultatBLL.MONTANT_ENCHERE_ERR);
+		}
+		if(montant_enchere > credit) {
+			businessException.ajouterErreur(CodesResultatBLL.CREDIT_ERR);
+		}
 	}
 
 	private void validerDate(LocalDate dateDebut, LocalDate dateFin, BusinessException businessException) {

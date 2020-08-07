@@ -34,26 +34,31 @@ public class ServletProfil extends HttpServlet {
 		int idUser = Integer.parseInt(request.getParameter("idUser"));
 		System.out.println("idUser : "+idUser);
 		
-		UtilisateurManager utilisateurManager = new UtilisateurManager();
-		try {
-			Utilisateur utilisateur = utilisateurManager.selectionnerUtilisateurParId(idUser);
-			request.setAttribute("idUser", idUser);
-			request.setAttribute("pseudo", utilisateur.getPseudo());
-			request.setAttribute("nom", utilisateur.getNom());
-			request.setAttribute("prenom", utilisateur.getPrenom());
-			request.setAttribute("email", utilisateur.getEmail());
-			request.setAttribute("telephone", utilisateur.getTelephone());
-			request.setAttribute("rue", utilisateur.getRue());
-			request.setAttribute("cp", utilisateur.getCodePostal());
-			request.setAttribute("ville", utilisateur.getVille());
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/profil.jsp");
-			rd.forward(request, response);
-		} catch (BusinessException e) {
-			e.printStackTrace();
-			request.setAttribute("listeCodesErreur",e.getListeCodesErreur());
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/listeEncheres.jsp");
-			rd.forward(request, response);
+		if(request.getParameter("idUser") == null) {
+			response.sendRedirect(request.getContextPath() + "/login");
+		} else {
+			UtilisateurManager utilisateurManager = new UtilisateurManager();
+			try {
+				Utilisateur utilisateur = utilisateurManager.selectionnerUtilisateurParId(idUser);
+				request.setAttribute("idUser", idUser);
+				request.setAttribute("pseudo", utilisateur.getPseudo());
+				request.setAttribute("nom", utilisateur.getNom());
+				request.setAttribute("prenom", utilisateur.getPrenom());
+				request.setAttribute("email", utilisateur.getEmail());
+				request.setAttribute("telephone", utilisateur.getTelephone());
+				request.setAttribute("rue", utilisateur.getRue());
+				request.setAttribute("cp", utilisateur.getCodePostal());
+				request.setAttribute("ville", utilisateur.getVille());
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/profil.jsp");
+				rd.forward(request, response);
+			} catch (BusinessException e) {
+				e.printStackTrace();
+				request.setAttribute("listeCodesErreur",e.getListeCodesErreur());
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/listeEncheres.jsp");
+				rd.forward(request, response);
+			}
 		}
+		
 	}
 
 	/**

@@ -40,5 +40,13 @@ public abstract class CodesResultatBLL {
 	 * echec si date de début est supérieur à la date du jour
 	 */
 	public static final int DATE_DEBUT_ERR=20008;
+	/**
+	 * Echec si montant enchere inférieur au prix de vente
+	 */
+	public static final int MONTANT_ENCHERE_ERR=20009;
+	/**
+	 * echec si le montant enchere supérieur au crédit de l'utilisateur
+	 */
+	public static final int CREDIT_ERR=20010;
 	
 }
