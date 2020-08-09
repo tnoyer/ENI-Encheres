@@ -2,6 +2,7 @@ package fr.eni.javaee.eniencheres.servlets;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -79,11 +80,17 @@ public class ServletEncherir extends HttpServlet {
 				//traitement du credit du nouvel encherisseur si c'était déjà l'utilisateur connecté
 				int newCredit = utilisateur.getCredit() - prix + montantEncherePrecedente;
 				utilisateurManager.modifierCredit(idUser, newCredit);
-			} else {
-				//traitement du credit du nouvel encherisseur si ce n'était pas lui le précédent encherisseur
+			} else if(encherisseurPrecedent != null) {
+				//traitement du credit du précédent encherisseur
 				int newCreditEncherisseurPrecedent = encherisseurPrecedent.getCredit() + montantEncherePrecedente;
 				utilisateurManager.modifierCredit(encherisseurPrecedent.getId(), newCreditEncherisseurPrecedent);
+				//traitement du credit du nouvel encherisseur si ce n'était pas lui le précédent encherisseur
 				int newCredit = utilisateur.getCredit() - prix;
+				utilisateurManager.modifierCredit(idUser, newCredit);
+			} else {
+				//traitement du crédit si aucun enchérisseur précédent
+				int newCredit = utilisateur.getCredit() - prix;
+				System.out.println("newCredit : "+newCredit);
 				utilisateurManager.modifierCredit(idUser, newCredit);
 			}
 			
@@ -91,8 +98,10 @@ public class ServletEncherir extends HttpServlet {
 		} catch (BusinessException e) {
 			e.printStackTrace();
 			System.out.println(e.getListeCodesErreur());
+			request.setAttribute("idArticle", idArt);
 			request.setAttribute("listeCodesErreur", e.getListeCodesErreur());
-			response.sendRedirect(request.getContextPath() + "/detail?idArt="+idArt);
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/erreurEnchere.jsp");
+			rd.forward(request, response);
 		}
 	}
 

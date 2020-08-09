@@ -30,12 +30,12 @@
 		<c:choose>
 			<c:when
 				test="${art.etatVente == 'ET' && enchere.idUtilisateur == id}">
-				<p>Vous avez remporté la vente !
+				<p style="text-align: center;">Vous avez remporté la vente !
 				<p>
 			</c:when>
 			<c:when
 				test="${art.etatVente == 'ET' && enchere.idUtilisateur != id}">
-				<p>${utilisateur.pseudo}a remporté la vente !</p>
+				<p style="text-align: center;">${utilisateur.pseudo} a remporté la vente !</p>
 			</c:when>
 			<c:otherwise>
 

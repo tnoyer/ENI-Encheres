@@ -52,8 +52,9 @@ public class ServletDetailArticle extends HttpServlet {
 			DateTimeFormatter formatters = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		    String text = dateJour.format(formatters);
 		    dateJour = LocalDate.parse(text, formatters);
-		    if(art.getDateFin().compareTo(dateJour) < 0) {
+		    if(art.getDateFin().compareTo(dateJour) <= 0) {
 				art.setEtatVente("ET");
+				System.out.println("la?");
 			}
 			System.out.println(art);
 			request.setAttribute("art", art);
