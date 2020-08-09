@@ -2,6 +2,7 @@ package fr.eni.javaee.eniencheres.servlets;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -91,8 +92,10 @@ public class ServletEncherir extends HttpServlet {
 		} catch (BusinessException e) {
 			e.printStackTrace();
 			System.out.println(e.getListeCodesErreur());
+			request.setAttribute("idArticle", idArt);
 			request.setAttribute("listeCodesErreur", e.getListeCodesErreur());
-			response.sendRedirect(request.getContextPath() + "/detail?idArt="+idArt);
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/erreurEnchere.jsp");
+			rd.forward(request, response);
 		}
 	}
 
