@@ -80,11 +80,17 @@ public class ServletEncherir extends HttpServlet {
 				//traitement du credit du nouvel encherisseur si c'était déjà l'utilisateur connecté
 				int newCredit = utilisateur.getCredit() - prix + montantEncherePrecedente;
 				utilisateurManager.modifierCredit(idUser, newCredit);
-			} else {
-				//traitement du credit du nouvel encherisseur si ce n'était pas lui le précédent encherisseur
+			} else if(encherisseurPrecedent != null) {
+				//traitement du credit du précédent encherisseur
 				int newCreditEncherisseurPrecedent = encherisseurPrecedent.getCredit() + montantEncherePrecedente;
 				utilisateurManager.modifierCredit(encherisseurPrecedent.getId(), newCreditEncherisseurPrecedent);
+				//traitement du credit du nouvel encherisseur si ce n'était pas lui le précédent encherisseur
 				int newCredit = utilisateur.getCredit() - prix;
+				utilisateurManager.modifierCredit(idUser, newCredit);
+			} else {
+				//traitement du crédit si aucun enchérisseur précédent
+				int newCredit = utilisateur.getCredit() - prix;
+				System.out.println("newCredit : "+newCredit);
 				utilisateurManager.modifierCredit(idUser, newCredit);
 			}
 			
