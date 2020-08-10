@@ -33,7 +33,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 			+ "INNER JOIN UTILISATEURS u ON av.no_utilisateur = u.no_utilisateur "
 			+ "INNER JOIN CATEGORIES c ON av.no_categorie = c.no_categorie";
 	private static final String SELECT_ALL_ACHAT = ""
-			+ "SELECT av.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, av.no_utilisateur, pseudo, rue, code_postal, ville, c.no_categorie, libelle, e.no_article, e.no_utilisateur "
+			+ "SELECT av.no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, av.prix_vente, av.no_utilisateur, pseudo, rue, code_postal, ville, c.no_categorie, libelle, e.no_article, e.no_utilisateur, e.montant_enchere "
 			+ "FROM ARTICLES_VENDUS av "
 			+ "INNER JOIN UTILISATEURS u ON av.no_utilisateur = u.no_utilisateur "
 			+ "INNER JOIN CATEGORIES c ON av.no_categorie = c.no_categorie "
@@ -236,7 +236,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 				where.append(" AND date_fin_encheres >= GETDATE() AND date_debut_encheres <= GETDATE() AND e.no_utilisateur = "+idUser);
 			}
 			if(encheresRemportees != null) {
-				where.append(" AND date_fin_encheres <= GETDATE() AND e.no_utilisateur = "+idUser);
+				where.append(" AND date_fin_encheres <= GETDATE() AND e.no_utilisateur = "+idUser+ " AND av.prix_vente = e.montant_enchere");
 			}
 			System.out.println(where);
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ALL_ACHAT+where);
